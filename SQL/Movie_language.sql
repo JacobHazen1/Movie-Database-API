@@ -1,0 +1,5 @@
+CREATE TABLE movieapi.MOVIE_LANGUAGE( 
+    Movie_ID INT PRIMARY KEY,
+    `Language` VARCHAR(50),
+    FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID)
+);
