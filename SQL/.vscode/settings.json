@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "movieapi",
+            "dialect": "MySQL",
+            "name": "MySQL",
+            "password": "password",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}
