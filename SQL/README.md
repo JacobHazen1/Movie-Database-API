@@ -13,6 +13,9 @@ User
 Review
 Updates
 Bans
+Filmworker
+Directs
+Performs_in
+Character
 
-
-NOTE: Ill merge all the code into one file at the end. Making it seperate just for cleaning
+NOTE: RUN THE COMBINED SQL. MAKE EDITS ON THE FILES THEN COPY PASTE THEM INTO THE COMBINED SQL

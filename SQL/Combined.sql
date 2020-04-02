@@ -81,14 +81,6 @@ CREATE TABLE movieapi.SHOWS(
 );
 
 
-
-
-
-
-
-
-
-
 CREATE TABLE movieapi.User( 
     `User_ID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     Username VARCHAR(15),
@@ -125,3 +117,41 @@ CREATE TABLE movieapi.BANS(
     PRIMARY KEY (Admin_ID, `User_ID`)
 );
 
+
+CREATE TABLE movieapi.FILM_WORKER( 
+    Worker_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    First_name VARCHAR(60),
+    Middle_name VARCHAR(60),
+    Last_name VARCHAR(60),
+    Age INT,
+    bDate DATE,
+    Director_flag BINARY,
+    Performer_flag BINARY,
+    Added_by_admin INT,
+    FOREIGN KEY (Added_by_admin) REFERENCES `Admin`(Admin_ID)
+);
+
+CREATE TABLE movieapi.DIRECTS( 
+    Director_ID INT,
+    Movie_ID INT,
+    FOREIGN KEY (Director_ID) REFERENCES FILM_WORKER(Worker_ID),
+    FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID),
+    PRIMARY KEY (Director_ID, Movie_ID)
+);
+
+CREATE TABLE movieapi.PERFORMS_IN( 
+    Performer_ID INT,
+    Movie_ID INT,
+    FOREIGN KEY (Performer_ID) REFERENCES FILM_WORKER(Worker_ID),
+    FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID),
+    PRIMARY KEY (Performer_ID, Movie_ID)
+);
+
+CREATE TABLE movieapi.`CHARACTER`( 
+    Performer_ID INT,
+    Movie_ID INT,
+    Character_name VARCHAR(100),
+    FOREIGN KEY (Performer_ID) REFERENCES FILM_WORKER(Worker_ID),
+    FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID),
+    PRIMARY KEY (Performer_ID, Movie_ID)
+);
