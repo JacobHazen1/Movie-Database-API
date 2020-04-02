@@ -1,7 +1,6 @@
 ORDER:
 Createdatebase
 Admin
-Updates
 Theater
 Movie_creator
 Showing_room
@@ -11,9 +10,9 @@ Movie_language
 Movie_genre
 Shows
 User
+Review
+Updates
 Bans
-
-
 
 
 NOTE: Ill merge all the code into one file at the end. Making it seperate just for cleaning
