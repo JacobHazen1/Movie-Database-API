@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db import connection
 from django.http import JsonResponse
 from django.http import HttpResponse
+import json
 
 # Create your views here.
 # class MyClass(View):
@@ -21,9 +22,10 @@ def my_custom_sql():
 
 def usertest(request):
     sql = my_custom_sql()
-    data = {"results": sql
-    }
-    return JsonResponse(data)
+    b = ([{"USER_ID": i[0], "USERNAME": i[1]} for i in sql])
+    return JsonResponse(b, safe=False)
+
+
 
 # def (self, request):
 #     cursor = connection['default'].cursor()
