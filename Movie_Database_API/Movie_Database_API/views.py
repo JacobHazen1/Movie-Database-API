@@ -20,15 +20,17 @@ def my_custom_sql():
     row = cursor.fetchall()
     return row
 
+#CUSTOM SQL
 # def usertest(request):
 #     sql = my_custom_sql()
 #     b = ([{"USER_ID": i[0], "USERNAME": i[1]} for i in sql])
 #     return JsonResponse(b, safe=False)
 
+#STORED PROCEDURE
 def usertest(request):
     cursor.callproc('movieapi.usertestSP')
     sql = cursor.fetchall()
-    # sql = cursor.execute("{call store.mysproc(?)}", (id))
+    #dictionary comprehension
     b = ([{"USER_ID": i[0], "USERNAME": i[1]} for i in sql])
     return JsonResponse(b, safe=False)
 
