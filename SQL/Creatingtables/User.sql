@@ -1,5 +1,5 @@
 CREATE TABLE movieapi.User( 
     `User_ID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(15),
-    `Password` VARCHAR(15)
+    Username VARCHAR(15) NOT NULL,
+    `Password` VARCHAR(15) NOT NULL
 );

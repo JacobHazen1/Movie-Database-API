@@ -14,22 +14,28 @@ import json
 #         # your code...
 #     def delete(self, request):
 #         # your code...
+cursor = connection.cursor()
 def my_custom_sql():
-    cursor = connection.cursor()
     cursor.execute("SELECT User_ID, Username FROM movieapi.user")
     row = cursor.fetchall()
     return row
 
+# def usertest(request):
+#     sql = my_custom_sql()
+#     b = ([{"USER_ID": i[0], "USERNAME": i[1]} for i in sql])
+#     return JsonResponse(b, safe=False)
+
 def usertest(request):
-    sql = my_custom_sql()
+    cursor.callproc('movieapi.usertestSP')
+    sql = cursor.fetchall()
+    # sql = cursor.execute("{call store.mysproc(?)}", (id))
     b = ([{"USER_ID": i[0], "USERNAME": i[1]} for i in sql])
     return JsonResponse(b, safe=False)
 
 
-
-# def (self, request):
-#     cursor = connection['default'].cursor()
-#     cursor.execute("SELECT Username FROM movieapi.user")
-#     row = cursor.fetchone()
-#     print(row)
-#     return JsonResponse({'questions': row})
+# class specificMovieTheatre():
+#     def get(self, request):
+#         cursor.execute("""SELECT M.Movie_ID, M.Title, T.Name, MSI.Start_time, MSI.End_time
+#                         FROM movieapi.theater AS T, movieapi.movie AS M, 
+#                         movieai.movie_showing_instance AS MSI""")
+#         row = cursor.fetchall()

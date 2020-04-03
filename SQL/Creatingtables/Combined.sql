@@ -1,9 +1,9 @@
 CREATE DATABASE movieapi;
 
-CREATE TABLE movieapi.`ADMIN`( 
+CREATE TABLE movieapi.ADMIN( 
     Admin_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(15),
-    `Password` VARCHAR(15)
+    Username VARCHAR(15) NOT NULL,
+    `Password` VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE movieapi.THEATER( 
@@ -83,9 +83,10 @@ CREATE TABLE movieapi.SHOWS(
 
 CREATE TABLE movieapi.User( 
     `User_ID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(15),
-    `Password` VARCHAR(15)
+    Username VARCHAR(15) NOT NULL,
+    `Password` VARCHAR(15) NOT NULL
 );
+
 
 CREATE TABLE movieapi.REVIEW( 
     Movie_ID INT,
