@@ -30,8 +30,9 @@ CREATE TABLE movieapi.MOVIE_CREATOR(
 
 
 CREATE TABLE movieapi.Showing_Room ( 
-    Room_no INT NOT NULL PRIMARY KEY,
+    Room_no INT ,
     Theater_ID INT,
+    PRIMARY KEY (Room_no, Theater_ID),
     FOREIGN KEY (Theater_ID) REFERENCES Theater(Theater_ID) 
 );
 
@@ -61,14 +62,16 @@ CREATE TABLE movieapi.Movie(
 );
 
 CREATE TABLE movieapi.MOVIE_LANGUAGE( 
-    Movie_ID INT PRIMARY KEY,
+    Movie_ID INT,
     `Language` VARCHAR(50),
+    PRIMARY KEY (Movie_ID, Language),
     FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID)
 );
 
 CREATE TABLE movieapi.MOVIE_GENRE( 
-    Movie_ID INT PRIMARY KEY,
+    Movie_ID INT,
     Genre VARCHAR(50),
+    PRIMARY KEY (Movie_ID, Genre),
     FOREIGN KEY (Movie_ID) REFERENCES Movie(Movie_ID)
 );
 
