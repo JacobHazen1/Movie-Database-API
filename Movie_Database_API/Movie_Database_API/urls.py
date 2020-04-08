@@ -20,11 +20,9 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('rank/', views.rank_endpoint, name='rank_endpoint'),
-    path('genre/', views.genre_endpoint, name='genre_endpoint'),
-    path('timeslot/', views.timeslot_endpoint, name='timeslot_endpoint'),
-    path('specific_movie_theater/', views.specific_movie_theater_endpoint, name='specific_movie_theater_endpoint')
+    path('rank/', views.rank_endpoint, name='rank_endpoint'), # Rank endpoint
+    path('genre/', views.genre_endpoint, name='genre_endpoint'), # Genre endpoint
+    path('timeslot/', views.timeslot_endpoint, name='timeslot_endpoint'), # TimeSlot endpoint
+    path('specific_movie_theater/', views.specific_movie_theater_endpoint, name='specific_movie_theater_endpoint') # Specific movie theater endpoint
 
-    # path('specificmovietheater/', views.specificMovieTheatre, name='specificmovietheater')
-    # path('', include('usertest.urls'))
 ]

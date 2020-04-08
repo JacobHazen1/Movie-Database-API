@@ -70,7 +70,7 @@ DELIMITER ;
 -- -------------------------
 DROP procedure IF EXISTS `specific_movie_theatre_endpoint`;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `specific_movie_theatre_endpoint`(theater_name VARCHAR(60), d_date DATE)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `specific_movie_theater_endpoint`(theater_name VARCHAR(60), d_date DATE)
 BEGIN
 	PREPARE statement FROM
 	'SELECT M.Movie_ID, M.Title, T.Name AS Theater_name,
