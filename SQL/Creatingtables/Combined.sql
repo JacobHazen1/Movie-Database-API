@@ -13,8 +13,8 @@ CREATE TABLE movieapi.THEATER(
     `Address` VARCHAR(255),
     City VARCHAR(30), 
     `Name` VARCHAR(60),
-    Opening_time DATETIME,
-    Closing_time DATETIME, 
+    Opening_time TIME,
+    Closing_time TIME, 
     Registered_by_admin INT,
     FOREIGN KEY (Registered_by_admin) REFERENCES `Admin`(Admin_ID)
 );

@@ -4,7 +4,11 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 import json
 
-# Create your views here.
+cursor = connection.cursor()
+
+# --------------------------------------------------------------------------
+# -------------------------Sample Code Snippets ----------------------------
+# --------------------------------------------------------------------------
 # class MyClass(View):
 #     def get(self, request):
 #         # your code...
@@ -14,7 +18,7 @@ import json
 #         # your code...
 #     def delete(self, request):
 #         # your code...
-cursor = connection.cursor()
+
 def my_custom_sql():
     cursor.execute("SELECT User_ID, Username FROM movieapi.user")
     row = cursor.fetchall()
@@ -41,3 +45,136 @@ def usertest(request):
 #                         FROM movieapi.theater AS T, movieapi.movie AS M, 
 #                         movieai.movie_showing_instance AS MSI""")
 #         row = cursor.fetchall()
+
+# --------------------------------------------------------------------------
+# -------------------------Actual Procedures--------------------------------
+# --------------------------------------------------------------------------
+def home(request):
+    resultSetJson = {'message': 'Welcome to our Movie Database API'}
+    return JsonResponse(resultSetJson)
+
+def rank_endpoint(request):
+    if request.method == 'GET':
+        try:
+            # Grab keyword arguments
+            count = request.GET.get('count')
+            count = int(count) 
+            if count < 0:
+                raise Exception('ValueError. Count cannot be < 0')
+
+            # Call stored procedure
+            cursor.callproc('movieapi.rank_endpoint', [count])
+            resultSet = cursor.fetchall()
+
+            # Get column names from cursor
+            column_names_list = [x[0] for x in cursor.description]
+
+            # Construct list of dict objects for Json ouput
+            resultSetJson = {'data':[dict(zip(column_names_list, row)) for row in resultSet]}
+        except Exception as ex:
+            resultSetJson = {
+                'source': 'rank/',
+                'message': 'Error. Invalid count value',
+                'detail': str(ex)
+            }   
+    else:
+        resultSetJson = {
+                'source': 'rank/',
+                'message': 'Invalid request method',
+                'detail': 'Request method must be GET'
+            }
+    return JsonResponse(resultSetJson)
+        
+
+def genre_endpoint(request):
+    if request.method == 'GET':
+        try:
+            # Grab keyword arguments
+            genre = request.GET.get('genre')
+            genre = genre.lower()
+
+            # Call stored procedure
+            cursor.callproc('movieapi.genre_endpoint', [genre])
+            resultSet = cursor.fetchall()
+
+            # Get column names from cursor
+            column_names_list = [x[0] for x in cursor.description]
+
+            # Construct list of dict objects for Json ouput
+            resultSetJson = {'data':[dict(zip(column_names_list, row)) for row in resultSet]}
+        except Exception as ex:
+            resultSetJson = {
+                'source': 'genre/',
+                'message': 'Error. Invalid genre value',
+                'detail': str(ex)
+            }   
+    else:
+        resultSetJson = {
+                'source': 'genre/',
+                'message': 'Invalid request method',
+                'detail': 'Request method must be GET'
+            }
+    return JsonResponse(resultSetJson)
+
+def timeslot_endpoint(request):
+    if request.method == 'GET':
+        try:
+            # Grab keyword arguments
+            theater_name = request.GET.get('theater_name')
+            theater_name = theater_name.lower()
+            time_start = request.GET.get('time_start')
+            time_end = request.GET.get('time_end')
+
+            # Call stored procedure
+            cursor.callproc('movieapi.timeslot_endpoint', [theater_name, time_start, time_end])
+            resultSet = cursor.fetchall()
+
+            # Get column names from cursor
+            column_names_list = [x[0] for x in cursor.description]
+
+            # Construct list of dict objects for Json ouput
+            resultSetJson = {'data':[dict(zip(column_names_list, row)) for row in resultSet]}
+        except Exception as ex:
+            resultSetJson = {
+                'source': 'timeslot/',
+                'message': 'Error. Invalid time_end or time_start value',
+                'detail': str(ex)
+            }   
+    else:
+        resultSetJson = {
+                'source': 'timeslot/',
+                'message': 'Error. Invalid request method',
+                'detail': 'Request method must be GET'
+            }
+    return JsonResponse(resultSetJson)
+
+def specific_movie_theater_endpoint(request):
+    if request.method == 'GET':
+        try:
+            # Grab keyword arguments
+            theater_name = request.GET.get('theater_name')
+            theater_name = theater_name.lower()
+            d_date = request.GET.get('d_date')
+
+            # Call stored procedure
+            cursor.callproc('movieapi.specific_movie_theater_endpoint', [theater_name, d_date])
+            resultSet = cursor.fetchall()
+
+            # Get column names from cursor
+            column_names_list = [x[0] for x in cursor.description]
+
+            # Construct list of dict objects for Json ouput
+            resultSetJson = {'data':[dict(zip(column_names_list, row)) for row in resultSet]}
+        except Exception as ex:
+            resultSetJson = {
+                'source': 'specific_movie_theater/',
+                'message': 'Error. Invalid date value',
+                'detail': str(ex)
+            }   
+    else:
+        resultSetJson = {
+                'source': 'specific_movie_theater/',
+                'message': 'Error. Invalid request method',
+                'detail': 'Request method must be GET'
+            }
+    return JsonResponse(resultSetJson, safe=False)

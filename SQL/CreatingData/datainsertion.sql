@@ -75,12 +75,12 @@ INSERT INTO `movieapi`.`movie_genre` (`Movie_ID`, `Genre`) VALUES ('12', 'comedy
 
 
 -- theater
-INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('1', '111-111-1111', 'ABC12', '1 Hutington Drive', 'Calgary', 'Jacob theatres', '07:00:00', '01:00:00', '1');
-INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('2', '222-222-2222', 'BCD45', '2 Hutington Drive', 'Edmonton', 'Sarhan theatres', '07:00:00', '01:00:00', '2');
-INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('3', '333-333-3333', 'EFG12', '3 Hutington Drive', 'Vancouver', 'Bobo theatres', '07:00:00', '01:00:00', '3');
-INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('4', '444-444-4444', 'FGH12', '4 Hutington Drive', 'Saskatoon', 'Everest theatres', '07:00:00', '01:00:00', '4');
-INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('5', '555-555-5555', 'T2MXZ', '5 Hutington Drive', 'Nova Scotia', 'Albert theatres', '07:00:00', '01:00:00', '5');
-INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('6', '666-666-6666', 'HKL45', '6 Hutington Drive', 'Victoria', 'ABC movies', '07:00:00', '01:00:00', '6');
+INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('1', '111-111-1111', 'ABC12', '1 Hutington Drive', 'Calgary', 'jacob theatres', '07:00:00', '01:00:00', '1');
+INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('2', '222-222-2222', 'BCD45', '2 Hutington Drive', 'Edmonton', 'sarhan theatres', '07:00:00', '01:00:00', '2');
+INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('3', '333-333-3333', 'EFG12', '3 Hutington Drive', 'Vancouver', 'bobo theatres', '07:00:00', '01:00:00', '3');
+INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('4', '444-444-4444', 'FGH12', '4 Hutington Drive', 'Saskatoon', 'everest theatres', '07:00:00', '01:00:00', '4');
+INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('5', '555-555-5555', 'T2MXZ', '5 Hutington Drive', 'Nova Scotia', 'albert theatres', '07:00:00', '01:00:00', '5');
+INSERT INTO `movieapi`.`theater` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('6', '666-666-6666', 'HKL45', '6 Hutington Drive', 'Victoria', 'abc movies', '07:00:00', '01:00:00', '6');
 
 -- Showing room
 INSERT INTO `movieapi`.`showing_room` (`Room_no`, `Theater_ID`) VALUES ('1', '1');
