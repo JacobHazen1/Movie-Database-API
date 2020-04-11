@@ -23,6 +23,7 @@ urlpatterns = [
     path('rank/', views.rank_endpoint, name='rank_endpoint'), # Rank endpoint
     path('genre/', views.genre_endpoint, name='genre_endpoint'), # Genre endpoint
     path('timeslot/', views.timeslot_endpoint, name='timeslot_endpoint'), # TimeSlot endpoint
-    path('specific_movie_theater/', views.specific_movie_theater_endpoint, name='specific_movie_theater_endpoint') # Specific movie theater endpoint
-
+    path('specific_movie_theater/', views.specific_movie_theater_endpoint, name='specific_movie_theater_endpoint'), # Specific movie theater endpoint
+    path('mpaa_rating/', views.mpaa_rating_endpoint, name='mpaa_rating_endpoint'), # Specific MPAA rating endpoint
+    path('language/', views.language_endpoint, name='language_endpoint') # Specific language endpoint
 ]

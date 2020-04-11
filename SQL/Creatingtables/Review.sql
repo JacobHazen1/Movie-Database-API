@@ -1,4 +1,4 @@
-CREATE TABLE movieapi.REVIEW( 
+CREATE TABLE movieapi.REVIEW(
     Movie_ID INT,
     Reviewer_ID INT,
     Review_ID INT,
