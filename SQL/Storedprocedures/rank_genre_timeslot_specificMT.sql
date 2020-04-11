@@ -161,22 +161,3 @@ END$$
 DELIMITER ;
 
 
--- -------------------------
--- Add movie endpoint
--- -------------------------
-DROP procedure IF EXISTS `add_movie_endpoint`;
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_movie_endpoint`(title VARCHAR(50),
-																 year INT,
-																 language VARCHAR(50),
-																 genre,
-																 description,
-																 mpaa_rating)
-BEGIN
-	PREPARE statement FROM
-	'';
-	SET @language = language;
-    EXECUTE statement USING @language;
-    DEALLOCATE PREPARE statement;
-END$$
-DELIMITER ;
