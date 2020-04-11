@@ -195,7 +195,14 @@ def mpaa_rating_endpoint(request):
             column_names_list = [x[0] for x in cursor.description]
 
             # Construct list of dict objects for Json ouput
-            resultSetJson = {'data':[dict(zip(column_names_list, row)) for row in resultSet]}
+            resultSetJson = {'data':[]}
+
+            for row in resultSet:
+                data = dict(zip(column_names_list, row))
+
+                # Get the genres the movie has as an array (since they can have multiple)
+                data['Genres'] = get_genres_as_array(data['Movie_ID'])
+                resultSetJson['data'].append(data)
         except Exception as ex:
             resultSetJson = {
                 'source': 'mpaa_rating/',
@@ -208,8 +215,25 @@ def mpaa_rating_endpoint(request):
                 'message': 'Error. Invalid request method',
                 'detail': 'Request method must be GET'
             }
-    # TODO: The genres should be combined into an array at this enpoint from the JSON file
     return JsonResponse(resultSetJson, safe=False)
+
+def get_genres_as_array(movie_id):
+    try:
+        # Call stored procedure
+        cursor.callproc('movieapi.all_genre_for_movie', [movie_id])
+        resultSet = cursor.fetchall()
+
+        # Get column names from cursor
+        column_names_list = [x[0] for x in cursor.description]
+
+        # Construct list of dict objects for Json ouput
+        result = []
+        for row in resultSet:
+            result.append(row[0])
+    except Exception as ex:
+        result = [str(ex)]
+        
+    return result
 
 def language_endpoint(request):
     if request.method == 'GET':
@@ -226,7 +250,13 @@ def language_endpoint(request):
             column_names_list = [x[0] for x in cursor.description]
 
             # Construct list of dict objects for Json ouput
-            resultSetJson = {'data':[dict(zip(column_names_list, row)) for row in resultSet]}
+            resultSetJson = {'data':[]}
+            for row in resultSet:
+                data = dict(zip(column_names_list, row))
+
+                # Get the genres the movie has as an array (since they can have multiple)
+                data['Genres'] = get_genres_as_array(data['Movie_ID'])
+                resultSetJson['data'].append(data)
         except Exception as ex:
             resultSetJson = {
                 'source': 'language/',
@@ -245,14 +275,20 @@ def upcoming_movies_endpoint(request):
     if request.method == 'GET':
         try:
             # Call stored procedure
-            cursor.callproc('movieapi.upcoming_movies_endpoint')
+            cursor.callproc('movieapi.upcoming_movies')
             resultSet = cursor.fetchall()
 
             # Get column names from cursor
             column_names_list = [x[0] for x in cursor.description]
 
             # Construct list of dict objects for Json ouput
-            resultSetJson = {'data':[dict(zip(column_names_list, row)) for row in resultSet]}
+            resultSetJson = {'data':[]}
+            for row in resultSet:
+                data = dict(zip(column_names_list, row))
+
+                # Get the genres the movie has as an array (since they can have multiple)
+                data['Genres'] = get_genres_as_array(data['Movie_ID'])
+                resultSetJson['data'].append(data)
         except Exception as ex:
             resultSetJson = {
                 'source': 'upcoming_movies/',
@@ -264,41 +300,5 @@ def upcoming_movies_endpoint(request):
                 'source': 'upcoming_movies/',
                 'message': 'Error. Invalid request method',
                 'detail': 'Request method must be GET'
-            }
-    return JsonResponse(resultSetJson, safe=False)
-
-def add_movie(request):
-    if request.method == 'POST':
-        try:
-            # Grab keyword arguments
-            title = request.GET.get('title')
-            year = request.GET.get('year')
-            genre = request.GET.get('genre')
-            description = request.GET.get('description')
-            directors = request.GET.getlist('movie_director')
-            actors = request.GET.getlist('movie_actor')
-            mpaa_rating = request.GET.get('mpaa_rating')
-            language = request.GET.get('language')
-
-            # Call stored procedure
-            cursor.callproc('movieapi.add_movie_endpoint', [title, year, genre, description, directors, actors, mpaa_rating, title])
-            resultSet = cursor.fetchall()
-
-            # Get column names from cursor
-            column_names_list = [x[0] for x in cursor.description]
-
-            # Construct list of dict objects for Json ouput
-            resultSetJson = {'message': "Successfully added movie", "success": True}
-        except Exception as ex:
-            resultSetJson = {
-                'source': 'add_movie/',
-                'message': 'Error. Invalid parameter input',
-                'detail': str(ex)
-            }   
-    else:
-        resultSetJson = {
-                'source': 'add_movie/',
-                'message': 'Error. Invalid request method',
-                'detail': 'Request method must be POST'
             }
     return JsonResponse(resultSetJson, safe=False)

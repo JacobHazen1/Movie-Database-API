@@ -25,7 +25,5 @@ urlpatterns = [
     path('timeslot/', views.timeslot_endpoint, name='timeslot_endpoint'), # TimeSlot endpoint
     path('specific_movie_theater/', views.specific_movie_theater_endpoint, name='specific_movie_theater_endpoint'), # Specific movie theater endpoint
     path('mpaa_rating/', views.mpaa_rating_endpoint, name='mpaa_rating_endpoint'), # Specific MPAA rating endpoint
-    path('language/', views.language_endpoint, name='language_endpoint'), # Specific language endpoint
-    path('upcoming_movies/', views.upcoming_movies_endpoint, name='upcoming_movies_endpoint'), # Upcoming movies endpoint
-    path('add_movie/', views.add_movie_endpoint, name='add_movie_endpoint') # Upcoming movies endpoint
+    path('language/', views.language_endpoint, name='language_endpoint') # Specific language endpoint
 ]
