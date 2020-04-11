@@ -1,4 +1,4 @@
-CREATE TABLE movieapi.DIRECTS( 
+CREATE TABLE movieapi.DIRECTS(
     Director_ID INT,
     Movie_ID INT,
     FOREIGN KEY (Director_ID) REFERENCES FILM_WORKER(Worker_ID),
