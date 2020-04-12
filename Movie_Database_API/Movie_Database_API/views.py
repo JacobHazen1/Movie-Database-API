@@ -473,11 +473,9 @@ def give_rating_endpoint(request):
             cursor.callproc('movieapi.give_rating_endpoint', [movie_title, username, rating, r_description])
             resultSet = cursor.fetchall()
             
-            # Get column names from cursor
-            column_names_list = [x[0] for x in cursor.description]
-            
-            # Construct list of dict objects for Json output
-            resultSetJson = {'data':[dict(zip(column_names_list, row)) for row in resultSet]}
+            # Construct the success message
+            success_string = "Successfully added review for " + str(movie_title) + " by user: " + str(username)
+            resultSetJson = {'message': success_string, "success": True}
         except Exception as ex:
             resultSetJson = {
                 'source': 'give_rating/',
