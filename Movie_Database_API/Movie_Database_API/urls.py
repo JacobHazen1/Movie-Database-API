@@ -29,6 +29,6 @@ urlpatterns = [
     path('add_movie/', views.add_movie_endpoint, name='add_movie_endpoint'), # Endpoint for adding movies
 	path('search_performer/', views.search_performer_endpoint, name='search_performer_endpoint'), # Search performer endpoint
 	path('give_rating/', views.give_rating_endpoint, name='give_rating_endpoint'), # Give rating endpoint
-	path('new_movies/', views.new_movies_enpoint, name='new_movies_enpoint'), # New movies endpoint
-	path('top_gross/', views.top_gross_enpoint, name='top_gross_enpoint') # Top gross endpoint
+	path('new_movies/', views.new_movies_endpoint, name='new_movies_endpoint'), # New movies endpoint
+	path('top_gross/', views.top_gross_endpoint, name='top_gross_endpoint') # Top gross endpoint
 ]
