@@ -53,9 +53,19 @@ UPDATE `movieapi`.`Movie` SET `Release` = '2020-12-11' WHERE (`Movie_ID` = '14')
 
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('1', 'English');
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('1', 'Spanish');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('2', 'Korean');
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('3', 'English');
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('4', 'English');
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('5', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('6', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('7', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('8', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('9', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('10', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('11', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('12', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('13', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('14', 'English');
 
 -- Movie_genre
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('1', 'biography');
@@ -94,24 +104,24 @@ INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('14', 'advent
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('14', 'comedy');
 
 -- Film_worker
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('1', 'Martin', 'Charles', 'Scorsese', '77', '1942-11-17', 'True', 'False', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('2', 'Robert', 'Anthony', 'De Niro', '76', '1943-08-17', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('3', 'Al', 'James', 'Pacino', '79', '1940-04-25', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('4', 'Bong', '', 'Joon-ho', '50', '1969-09-14', 'True', 'False', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('5', 'Kang-ho Song', '', 'Song', '53', '1967-01-17', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('6', 'Georgios', 'Yorgos', 'Lanthimos', '46', '1973-05-27', 'True', 'False', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('7', 'Olivia', '', 'Colman', '46', '1974-01-30', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('8', 'Emma', 'Jean', 'Stone', '31', '1988-11-06', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('9', 'Lulu', '', 'Wang', '37', '1983-02-25', 'True', 'False', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('10', 'Awkwafina', '', '', '31', '1988-06-2', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('11', 'Hirokazu', '', 'Koreeda', '57', '1962-06-06', 'True', 'False', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('12', 'Greta', 'Celeste', 'Gerwig', '36', '1983-08-04', 'True', 'False', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('13', 'Saoirse', 'Una', 'Ronan', '25', '1994-04-12', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('14', 'Florence', '', 'Pugh', '24', '1996-01-03', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('15', 'Joe', '', 'Russo', '48', '1971-07-18', 'True', 'False', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('16', 'Anthony', '', 'Russo', '50', '1970-02-03', 'True', 'False', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('17', 'Chris', 'Robert', 'Evans', '38', '1981-06-13', 'False', 'True', '3');
-INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('18', 'Robert', 'John', 'Downey Jr.', '55', '1965-04-04', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('1', 'Martin', 'Charles', 'Scorsese', '77', '1942-11-17', '1', '0', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('2', 'Robert', 'Anthony', 'De Niro', '76', '1943-08-17', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('3', 'Al', 'James', 'Pacino', '79', '1940-04-25', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('4', 'Bong', '', 'Joon-ho', '50', '1969-09-14', '1', '0', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('5', 'Kang-ho Song', '', 'Song', '53', '1967-01-17', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('6', 'Georgios', 'Yorgos', 'Lanthimos', '46', '1973-05-27', '1', '0', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('7', 'Olivia', '', 'Colman', '46', '1974-01-30', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('8', 'Emma', 'Jean', 'Stone', '31', '1988-11-06', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('9', 'Lulu', '', 'Wang', '37', '1983-02-25', '1', '0', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('10', 'Awkwafina', '', '', '31', '1988-06-2', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('11', 'Hirokazu', '', 'Koreeda', '57', '1962-06-06', '1', '0', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('12', 'Greta', 'Celeste', 'Gerwig', '36', '1983-08-04', '1', '0', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('13', 'Saoirse', 'Una', 'Ronan', '25', '1994-04-12', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('14', 'Florence', '', 'Pugh', '24', '1996-01-03', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('15', 'Joe', '', 'Russo', '48', '1971-07-18', '1', '0', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('16', 'Anthony', '', 'Russo', '50', '1970-02-03', '1', '0', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('17', 'Chris', 'Robert', 'Evans', '38', '1981-06-13', '0', '1', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('18', 'Robert', 'John', 'Downey Jr.', '55', '1965-04-04', '0', '1', '3');
 
 -- directs
 INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('1', '1');
