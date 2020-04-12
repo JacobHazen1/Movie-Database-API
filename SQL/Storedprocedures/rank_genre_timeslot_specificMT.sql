@@ -131,14 +131,14 @@ DELIMITER ;
 -- -------------------------
 DROP procedure IF EXISTS `language_endpoint`;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `language_endpoint`(language VARCHAR(50))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `language_endpoint`(`language` VARCHAR(50))
 BEGIN
 	PREPARE statement FROM
 	'SELECT Distinct M.Movie_ID, M.Title, M.Overall_rating, M.Release, M.Length, M.Description
 	FROM	Movie AS M, MOVIE_LANGUAGE AS ML
 	WHERE	M.Movie_ID = ML.Movie_ID
             AND ML.Language = ?';
-	SET @language = language;
+	SET @language = `language`;
     EXECUTE statement USING @language;
     DEALLOCATE PREPARE statement;
 END$$
@@ -152,12 +152,142 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `upcoming_movies`()
 BEGIN
 	PREPARE statement FROM
-	'SELECT M.Movie_ID, M.Title, M.Overall_rating, M.Length, M.Description, M.Release
-	FROM	Movie AS M
-	WHERE	M.Release > CURDATE()';
+	'SELECT
+         M.Movie_ID,
+         M.Title,
+         M.Overall_rating,
+         M.Length,
+         M.Description,
+         M.Release
+     FROM
+         Movie AS M
+     WHERE
+         M.Release > CURDATE()';
     EXECUTE statement;
     DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
+-- -------------------------
+-- Add movie endpoint
+-- -------------------------
+DROP procedure IF EXISTS `add_movie_endpoint`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_movie_endpoint`(title VARCHAR(50),
+																release_date DATE,
+																 movie_length INT,
+																 description_text TEXT,
+																 mpaa_rating VARCHAR(10))
+BEGIN
+    PREPARE statement FROM
+    'INSERT INTO Movie (`Description`, `Length`, MPAA_rating, Title, `Release`) VALUES
+    (?, ?, ?, ?, ?)';
+    SET @title = title;
+    SET @release_date = release_date;
+    SET @movie_length = movie_length;
+    SET @description_text = description_text;
+    SET @mpaa_rating = mpaa_rating;
+    EXECUTE statement USING @description_text, @movie_length, @mpaa_rating, @title, @release_date;
+    DEALLOCATE PREPARE statement;
+	PREPARE statement FROM
+    'SELECT LAST_INSERT_ID()';
+	EXECUTE statement;
+	DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
 
+-- -------------------------
+-- Add film worker endpoint
+-- -------------------------
+DROP procedure IF EXISTS `add_film_worker`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_film_worker`(First_name VARCHAR(60),
+																Middle_name VARCHAR(60),
+																Last_name VARCHAR(60),
+																 Director_flag BINARY,
+																 Performer_flag BINARY)
+BEGIN
+    PREPARE statement FROM
+    'INSERT INTO FILM_WORKER (First_name, Middle_name, Last_name, Director_flag, Performer_flag) VALUES
+    (?, ?, ?, ?, ?)';
+    SET @First_name = First_name;
+    SET @Middle_name = Middle_name;
+    SET @Last_name = Last_name;
+    SET @Director_flag = Director_flag;
+    SET @Performer_flag = Performer_flag;
+    EXECUTE statement USING @First_name, @Middle_name, @Last_name, @Director_flag, @Performer_flag;
+    DEALLOCATE PREPARE statement;
+	PREPARE statement FROM
+    'SELECT LAST_INSERT_ID()';
+	EXECUTE statement;
+	DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
+
+-- -------------------------
+-- Add genre for movie procedure
+-- -------------------------
+DROP procedure IF EXISTS `add_genre`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_genre`(Movie_ID INT, Genre VARCHAR(50))
+BEGIN
+    PREPARE statement FROM
+    'INSERT INTO MOVIE_GENRE (Movie_ID, Genre) VALUES
+    (?, ?)';
+    SET @Movie_ID = Movie_ID;
+    SET @Genre = Genre;
+    EXECUTE statement USING @Movie_ID, @Genre;
+	DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
+
+-- -------------------------
+-- Add performer to movie procedure
+-- -------------------------
+DROP procedure IF EXISTS `add_performer_to_movie`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_performer_to_movie`(Movie_ID INT, Performer_ID INT)
+BEGIN
+    PREPARE statement FROM
+    'INSERT INTO PERFORMS_IN (Performer_ID, Movie_ID) VALUES
+    (?, ?)';
+    SET @Movie_ID = Movie_ID;
+    SET @Performer_ID = Performer_ID;
+    EXECUTE statement USING @Performer_ID, @Movie_ID;
+	DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
+
+-- -------------------------
+-- Add director to movie procedure
+-- -------------------------
+DROP procedure IF EXISTS `add_director_to_movie`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_director_to_movie`(Movie_ID INT, Director_ID INT)
+BEGIN
+    PREPARE statement FROM
+    'INSERT INTO DIRECTS (Director_ID, Movie_ID) VALUES
+    (?, ?)';
+    SET @Movie_ID = Movie_ID;
+    SET @Director_ID = Director_ID;
+    EXECUTE statement USING @Director_ID, @Movie_ID;
+	DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
+
+-- -------------------------
+-- Add language to movie procedure
+-- -------------------------
+DROP procedure IF EXISTS `add_language`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_language`(Movie_ID INT, `language` VARCHAR(50))
+BEGIN
+    PREPARE statement FROM
+    'INSERT INTO MOVIE_GENRE (Movie_ID, Genre) VALUES
+    (?, ?)';
+	SET @Movie_ID = Movie_ID;
+    SET @language = `language`;
+    EXECUTE statement USING @Movie_ID, @language;
+	DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
