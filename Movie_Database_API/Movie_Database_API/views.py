@@ -350,11 +350,11 @@ def add_movie_endpoint(request):
                     m_name = ' '.join(names[1:len(names) - 1])
                     l_name = names[len(names) - 1]
                 elif(len(names) == 2):
-                    m_name = None
+                    m_name = ''
                     l_name = l_name = names[len(names) - 1]
                 else:
-                    m_name = None
-                    l_name = None
+                    m_name = ''
+                    l_name = ''
 
                 # Insert the director into the database
                 cursor.callproc('movieapi.add_film_worker', [f_name, m_name, l_name, 1, 0])
@@ -375,11 +375,11 @@ def add_movie_endpoint(request):
                     m_name = ' '.join(names[1:len(names) - 1])
                     l_name = names[len(names) - 1]
                 elif(len(names) == 2):
-                    m_name = None
+                    m_name = ''
                     l_name = l_name = names[len(names) - 1]
                 else:
-                    m_name = None
-                    l_name = None
+                    m_name = ''
+                    l_name = ''
                 
                 # Insert the performer into the database
                 cursor.callproc('movieapi.add_film_worker', [f_name, m_name, l_name, 0, 1])
@@ -425,11 +425,11 @@ def search_performer_endpoint(request):
                 m_name = ' '.join(names[1:len(names) - 1])
                 l_name = names[len(names) - 1]
             elif(len(names) == 2):
-                m_name = None
+                m_name = ''
                 l_name = l_name = names[len(names) - 1]
             else:
-                m_name = None
-                l_name = None
+                m_name = ''
+                l_name = ''
             
             # Call stored procedure
             cursor.callproc('movieapi.search_performer_endpoint', [f_name, l_name])
