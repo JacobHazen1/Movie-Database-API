@@ -7,13 +7,19 @@ DROP procedure IF EXISTS `rank_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `rank_endpoint`(count INT)
 BEGIN
-	PREPARE statement FROM
-		'SELECT 	M.Movie_ID, M.Overall_rating,
-					M.Title, M.Description
-		FROM		Movie AS M
-		ORDER BY 	M.Overall_rating DESC
-		LIMIT		?';	
-	SET @count = count;
+    PREPARE statement FROM
+        'SELECT
+            M.Movie_ID,
+            M.Overall_rating,
+            M.Title,
+            M.Description
+        FROM
+            Movie AS M
+        ORDER BY
+            M.Overall_rating DESC
+        LIMIT
+            ?';	
+    SET @count = count;
     EXECUTE statement USING @count;
     DEALLOCATE PREPARE statement;
 END$$
@@ -26,17 +32,17 @@ DROP procedure IF EXISTS `genre_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `genre_endpoint`(genre VARCHAR(20))
 BEGIN
-	PREPARE statement FROM
-		'SELECT DISTINCT M.Movie_ID, M.Title,
-				MG.Genre, M.Description
-		FROM 	movie AS M, movie_genre AS MG, 
-				shows AS S, theater AS T
-		WHERE	M.Movie_ID = MG.Movie_ID 
+    PREPARE statement FROM
+        'SELECT DISTINCT M.Movie_ID, M.Title,
+                MG.Genre, M.Description
+        FROM 	movie AS M, movie_genre AS MG, 
+                shows AS S, theater AS T
+        WHERE	M.Movie_ID = MG.Movie_ID 
                 AND M.Movie_ID = S.Movie_ID
                 AND S.Theater_ID = T.Theater_ID
                 AND MG.Genre = ?';
-	SET @genre = genre;
-	EXECUTE statement USING @genre;
+    SET @genre = genre;
+    EXECUTE statement USING @genre;
     DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
@@ -47,20 +53,28 @@ DELIMITER ;
 DROP procedure IF EXISTS `timeslot_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `timeslot_endpoint`(theater_name VARCHAR(60), 
-									  time_start DATETIME, time_end DATETIME)
+                                      time_start DATETIME, time_end DATETIME)
 BEGIN
-	PREPARE statement FROM
-		'SELECT M.Movie_ID, M.Title, T.Name AS Theater_name,
-				MSI.Start_time, MSI.End_time, 
-				M.Description, MSI.Room_no AS Theater_room_no
-		FROM	Movie AS M, MOVIE_SHOWING_INSTANCE AS MSI,
-				THEATER AS T
-		WHERE	M.Movie_ID = MSI.Movie_ID 
-				AND T.Theater_ID = MSI.Theater_ID
-				AND T.Name = ?
-				AND MSI.Start_time >= ?
-				AND MSI.End_time <= ?';
-	SET @theater_name = theater_name;
+    PREPARE statement FROM
+        'SELECT
+            M.Movie_ID,
+            M.Title,
+            T.Name AS Theater_name,
+            MSI.Start_time,
+            MSI.End_time,
+            M.Description,
+            MSI.Room_no AS Theater_room_no
+        FROM
+            Movie AS M,
+            MOVIE_SHOWING_INSTANCE AS MSI,
+            THEATER AS T
+        WHERE
+            M.Movie_ID = MSI.Movie_ID
+            AND T.Theater_ID = MSI.Theater_ID
+            AND T.Name = ?
+            AND MSI.Start_time >= ?
+            AND MSI.End_time <= ?';
+    SET @theater_name = theater_name;
     SET @time_start = time_start;
     SET @time_end = time_end;
     EXECUTE statement USING @theater_name, @time_start, @time_end;
@@ -75,18 +89,26 @@ DROP procedure IF EXISTS `specific_movie_theater_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `specific_movie_theater_endpoint`(theater_name VARCHAR(60), d_date DATE)
 BEGIN
-	PREPARE statement FROM
-	'SELECT M.Movie_ID, M.Title, T.Name AS Theater_name,
-			MSI.Start_time, MSI.End_time, 
-            M.Description, MSI.Room_no AS Theater_room_no
-	FROM	Movie AS M, MOVIE_SHOWING_INSTANCE AS MSI,
-			THEATER AS T
-	WHERE	M.Movie_ID = MSI.Movie_ID 
-			AND T.Theater_ID = MSI.Theater_ID
+    PREPARE statement FROM
+        'SELECT
+            M.Movie_ID,
+            M.Title,
+            T.Name AS Theater_name,
+            MSI.Start_time,
+            MSI.End_time,
+            M.Description,
+            MSI.Room_no AS Theater_room_no
+        FROM
+            Movie AS M,
+            MOVIE_SHOWING_INSTANCE AS MSI,
+            THEATER AS T
+        WHERE
+            M.Movie_ID = MSI.Movie_ID
+            AND T.Theater_ID = MSI.Theater_ID
             AND T.Name = ?
             AND MSI.Start_time >= ?
-			AND MSI.End_time <= DATE_ADD(?, INTERVAL 24 HOUR)';
-	SET @theater_name = theater_name;
+            AND MSI.End_time <= DATE_ADD(?, INTERVAL 24 HOUR)';
+    SET @theater_name = theater_name;
     SET @d_date = d_date;
     EXECUTE statement USING @theater_name, @d_date, @d_date;
     DEALLOCATE PREPARE statement;
@@ -100,12 +122,18 @@ DROP procedure IF EXISTS `mpaa_rating_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `mpaa_rating_endpoint`(mpaa_rating VARCHAR(10))
 BEGIN
-	PREPARE statement FROM
-	'SELECT Distinct M.Movie_ID, M.Title, M.MPAA_rating, M.Description
-	FROM	Movie AS M
-	WHERE	M.Movie_ID
+    PREPARE statement FROM
+        'SELECT
+            DISTINCT M.Movie_ID,
+            M.Title,
+            M.MPAA_rating,
+            M.Description
+        FROM
+            Movie AS M
+        WHERE
+            M.Movie_ID
             AND M.MPAA_rating = ?';
-	SET @mpaa_rating = mpaa_rating;
+    SET @mpaa_rating = mpaa_rating;
     EXECUTE statement USING @mpaa_rating;
     DEALLOCATE PREPARE statement;
 END$$
@@ -118,12 +146,16 @@ DROP procedure IF EXISTS `all_genre_for_movie`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `all_genre_for_movie`(Movie_ID INT)
 BEGIN
-	PREPARE statement FROM
-	'SELECT MG.genre
-	FROM	Movie AS M, MOVIE_GENRE AS MG
-	WHERE	M.Movie_ID = MG.Movie_ID 
+    PREPARE statement FROM
+        'SELECT
+            MG.genre
+        FROM
+            Movie AS M,
+            MOVIE_GENRE AS MG
+        WHERE
+            M.Movie_ID = MG.Movie_ID
             AND M.Movie_ID = ?';
-	SET @Movie_ID = Movie_ID;
+    SET @Movie_ID = Movie_ID;
     EXECUTE statement USING @Movie_ID;
     DEALLOCATE PREPARE statement;
 END$$
@@ -136,12 +168,21 @@ DROP procedure IF EXISTS `language_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `language_endpoint`(`language` VARCHAR(50))
 BEGIN
-	PREPARE statement FROM
-	'SELECT Distinct M.Movie_ID, M.Title, M.Overall_rating, M.Release, M.Length, M.Description
-	FROM	Movie AS M, MOVIE_LANGUAGE AS ML
-	WHERE	M.Movie_ID = ML.Movie_ID
+    PREPARE statement FROM
+        'SELECT
+            DISTINCT M.Movie_ID,
+            M.Title,
+            M.Overall_rating,
+            M.Release,
+            M.Length,
+            M.Description
+        FROM
+            Movie AS M,
+            MOVIE_LANGUAGE AS ML
+        WHERE
+            M.Movie_ID = ML.Movie_ID
             AND ML.Language = ?';
-	SET @language = `language`;
+    SET @language = `language`;
     EXECUTE statement USING @language;
     DEALLOCATE PREPARE statement;
 END$$
@@ -154,18 +195,18 @@ DROP procedure IF EXISTS `upcoming_movies`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `upcoming_movies`()
 BEGIN
-	PREPARE statement FROM
-	'SELECT
-         M.Movie_ID,
-         M.Title,
-         M.Overall_rating,
-         M.Length,
-         M.Description,
-         M.Release
-     FROM
-         Movie AS M
-     WHERE
-         M.Release > CURDATE()';
+    PREPARE statement FROM
+        'SELECT
+            M.Movie_ID,
+            M.Title,
+            M.Overall_rating,
+            M.Length,
+            M.Description,
+            M.Release
+        FROM
+            Movie AS M
+        WHERE
+            M.Release > CURDATE()';
     EXECUTE statement;
     DEALLOCATE PREPARE statement;
 END$$
@@ -176,15 +217,24 @@ DELIMITER ;
 -- -------------------------
 DROP procedure IF EXISTS `add_movie_endpoint`;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_movie_endpoint`(title VARCHAR(50),
-																release_date DATE,
-																 movie_length INT,
-																 description_text TEXT,
-																 mpaa_rating VARCHAR(10))
+CREATE DEFINER=`root`@`localhost` PROCEDURE`add_movie_endpoint`
+                                            (title VARCHAR(50),
+                                             release_date DATE,
+                                             movie_length INT,
+                                             description_text TEXT,
+                                             mpaa_rating VARCHAR(10))
 BEGIN
     PREPARE statement FROM
-    'INSERT INTO Movie (`Description`, `Length`, MPAA_rating, Title, `Release`) VALUES
-    (?, ?, ?, ?, ?)';
+        'INSERT INTO
+            Movie (
+                `Description`,
+                `Length`,
+                MPAA_rating,
+                Title,
+                `Release`
+            )
+        VALUES
+            (?, ?, ?, ?, ?)';
     SET @title = title;
     SET @release_date = release_date;
     SET @movie_length = movie_length;
@@ -192,10 +242,10 @@ BEGIN
     SET @mpaa_rating = mpaa_rating;
     EXECUTE statement USING @description_text, @movie_length, @mpaa_rating, @title, @release_date;
     DEALLOCATE PREPARE statement;
-	PREPARE statement FROM
+    PREPARE statement FROM
     'SELECT LAST_INSERT_ID()';
-	EXECUTE statement;
-	DEALLOCATE PREPARE statement;
+    EXECUTE statement;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
@@ -204,15 +254,24 @@ DELIMITER ;
 -- -------------------------
 DROP procedure IF EXISTS `add_film_worker`;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_film_worker`(First_name VARCHAR(60),
-																Middle_name VARCHAR(60),
-																Last_name VARCHAR(60),
-																 Director_flag BINARY,
-																 Performer_flag BINARY)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_film_worker`
+                                            (First_name VARCHAR(60),
+                                             Middle_name VARCHAR(60),
+                                             Last_name VARCHAR(60),
+                                             Director_flag BINARY,
+                                             Performer_flag BINARY)
 BEGIN
     PREPARE statement FROM
-    'INSERT INTO FILM_WORKER (First_name, Middle_name, Last_name, Director_flag, Performer_flag) VALUES
-    (?, ?, ?, ?, ?)';
+        'INSERT INTO
+            FILM_WORKER (
+                First_name,
+                Middle_name,
+                Last_name,
+                Director_flag,
+                Performer_flag
+            )
+        VALUES
+            (?, ?, ?, ?, ?)';
     SET @First_name = First_name;
     SET @Middle_name = Middle_name;
     SET @Last_name = Last_name;
@@ -220,10 +279,10 @@ BEGIN
     SET @Performer_flag = Performer_flag;
     EXECUTE statement USING @First_name, @Middle_name, @Last_name, @Director_flag, @Performer_flag;
     DEALLOCATE PREPARE statement;
-	PREPARE statement FROM
+    PREPARE statement FROM
     'SELECT LAST_INSERT_ID()';
-	EXECUTE statement;
-	DEALLOCATE PREPARE statement;
+    EXECUTE statement;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
@@ -235,12 +294,14 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_genre`(Movie_ID INT, Genre VARCHAR(50))
 BEGIN
     PREPARE statement FROM
-    'INSERT INTO MOVIE_GENRE (Movie_ID, Genre) VALUES
-    (?, ?)';
+        'INSERT INTO
+            MOVIE_GENRE (Movie_ID, Genre)
+        VALUES
+            (?, ?)';
     SET @Movie_ID = Movie_ID;
     SET @Genre = Genre;
     EXECUTE statement USING @Movie_ID, @Genre;
-	DEALLOCATE PREPARE statement;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
@@ -252,12 +313,14 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_performer_to_movie`(Movie_ID INT, Performer_ID INT)
 BEGIN
     PREPARE statement FROM
-    'INSERT INTO PERFORMS_IN (Performer_ID, Movie_ID) VALUES
-    (?, ?)';
+        'INSERT INTO
+            PERFORMS_IN (Performer_ID, Movie_ID)
+        VALUES
+            (?, ?)';
     SET @Movie_ID = Movie_ID;
     SET @Performer_ID = Performer_ID;
     EXECUTE statement USING @Performer_ID, @Movie_ID;
-	DEALLOCATE PREPARE statement;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
@@ -269,12 +332,14 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_director_to_movie`(Movie_ID INT, Director_ID INT)
 BEGIN
     PREPARE statement FROM
-    'INSERT INTO DIRECTS (Director_ID, Movie_ID) VALUES
-    (?, ?)';
+        'INSERT INTO
+            DIRECTS (Director_ID, Movie_ID)
+        VALUES
+            (?, ?)';
     SET @Movie_ID = Movie_ID;
     SET @Director_ID = Director_ID;
     EXECUTE statement USING @Director_ID, @Movie_ID;
-	DEALLOCATE PREPARE statement;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
@@ -286,11 +351,13 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_language`(Movie_ID INT, `language` VARCHAR(50))
 BEGIN
     PREPARE statement FROM
-    'INSERT INTO MOVIE_LANGUAGE (Movie_ID, Language) VALUES
-    (?, ?)';
-	SET @Movie_ID = Movie_ID;
+        'INSERT INTO
+            MOVIE_LANGUAGE (Movie_ID, Language)
+        VALUES
+            (?, ?)';
+    SET @Movie_ID = Movie_ID;
     SET @language = `language`;
     EXECUTE statement USING @Movie_ID, @language;
-	DEALLOCATE PREPARE statement;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;

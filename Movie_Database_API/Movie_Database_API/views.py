@@ -372,12 +372,10 @@ def add_movie_endpoint(request):
                 # insert each performer into database
                 cursor.callproc('movieapi.add_performer_to_movie', [movie_id, actor_id])
             
-            for langauge in languages:
+            for language in languages:
                 # insert each langauge into database
-                cursor.callproc('movieapi.add_language', [movie_id, langauge])
+                cursor.callproc('movieapi.add_language', [movie_id, language])
 
-
-            print(movie_id);
             # Construct list of dict objects for Json ouput
             resultSetJson = {'message': "Successfully added movie", "success": True}
         except Exception as ex:
