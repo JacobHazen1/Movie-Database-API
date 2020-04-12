@@ -392,7 +392,7 @@ def add_movie_endpoint(request):
                 cursor.callproc('movieapi.add_language', [movie_id, langauge])
 
             # Construct the success message
-            success_string = "Successfully added movie " + str(title) + "with Movie_ID " + str(movie_id)
+            success_string = "Successfully added movie " + str(title) + " with Movie_ID " + str(movie_id)
             resultSetJson = {'message': success_string, "success": True}
         except Exception as ex:
             resultSetJson = {
