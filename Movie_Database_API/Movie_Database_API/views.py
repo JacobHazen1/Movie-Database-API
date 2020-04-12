@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.db import connection
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 cursor = connection.cursor()
@@ -302,3 +303,94 @@ def upcoming_movies_endpoint(request):
                 'detail': 'Request method must be GET'
             }
     return JsonResponse(resultSetJson, safe=False)
+
+@csrf_exempt
+def add_movie_endpoint(request):
+    if request.method == 'POST':
+        try:
+            # Grab keyword arguments
+            title = request.POST.get('title')
+            release = request.POST.get('release')
+            length = request.POST.get('length')
+            description = request.POST.get('description')
+            mpaa_rating = request.POST.get('mpaa_rating')
+
+            genres = request.POST.getlist('genre')
+            directors = request.POST.getlist('director')
+            performers = request.POST.getlist('performer')
+            languages = request.POST.getlist('language')
+
+            # Call stored procedure to create a movie
+            cursor.callproc('movieapi.add_movie_endpoint', [title, release, length, description, mpaa_rating])
+
+            # Get the primary key of the created movie;
+            movie_id = cursor.fetchall()[0][0]
+
+            for genre in genres:
+                # insert each genre into database
+                cursor.callproc('movieapi.add_genre', [movie_id, genre])
+
+            # insert each director into database
+            for director in directors:
+                # split names into name components
+                names = director.split(' ')
+                f_name = names[0]
+                
+                if(len(names) > 2):
+                    # All the names that arent in the first name or last name is joined into middle name
+                    m_name = ' '.join(names[1:len(names) - 1])
+                    l_name = names[len(names) - 1]
+                elif(len(names) == 2):
+                    m_name = None
+                    l_name = l_name = names[len(names) - 1]
+                else:
+                    m_name = None
+                    l_name = None
+
+                cursor.callproc('movieapi.add_film_worker', [f_name, m_name, l_name, 1, 0])
+                director_id = cursor.fetchall()[0][0]
+                cursor.callproc('movieapi.add_director_to_movie', [movie_id, director_id])
+
+            for performer in performers:
+                # split names into name components
+                names = performer.split(' ')
+                f_name = names[0]
+
+                if(len(names) > 2):
+                    # All the names that arent in the first name or last name is joined into middle name
+                    m_name = ' '.join(names[1:len(names) - 1])
+                    l_name = names[len(names) - 1]
+                elif(len(names) == 2):
+                    m_name = None
+                    l_name = l_name = names[len(names) - 1]
+                else:
+                    m_name = None
+                    l_name = None
+
+                cursor.callproc('movieapi.add_film_worker', [f_name, m_name, l_name, 0, 1])
+                actor_id = cursor.fetchall()[0][0]
+                # insert each performer into database
+                cursor.callproc('movieapi.add_performer_to_movie', [movie_id, actor_id])
+            
+            for langauge in languages:
+                # insert each langauge into database
+                cursor.callproc('movieapi.add_language', [movie_id, langauge])
+
+
+            print(movie_id);
+            # Construct list of dict objects for Json ouput
+            resultSetJson = {'message': "Successfully added movie", "success": True}
+        except Exception as ex:
+            resultSetJson = {
+                'source': 'add_movie/',
+                'message': 'Error. Invalid parameter input',
+                'detail': str(ex)
+            }   
+    else:
+        resultSetJson = {
+                'source': 'add_movie/',
+                'message': 'Error. Invalid request method',
+                'detail': 'Request method must be POST'
+            }
+    return JsonResponse(resultSetJson, safe=False)
+
