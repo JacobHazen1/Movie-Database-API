@@ -129,9 +129,12 @@ BEGIN
             M.MPAA_rating,
             M.Description
         FROM
-            Movie AS M
+            Movie AS M,
+            SHOWS AS S,
+            THEATER AS T
         WHERE
-            M.Movie_ID
+            M.Movie_ID = S.Movie_ID
+            AND S.Theater_ID = T.Theater_ID
             AND M.MPAA_rating = ?';
     SET @mpaa_rating = mpaa_rating;
     EXECUTE statement USING @mpaa_rating;
@@ -179,9 +182,13 @@ BEGIN
             M.Gross
         FROM
             Movie AS M,
-            MOVIE_LANGUAGE AS ML
+            MOVIE_LANGUAGE AS ML,
+            SHOWS AS S,
+            THEATER AS T
         WHERE
-            M.Movie_ID = ML.Movie_ID
+            M.Movie_ID = S.Movie_ID
+            AND S.Theater_ID = T.Theater_ID
+            AND M.Movie_ID = ML.Movie_ID
             AND ML.Language = ?';
     SET @language = `language`;
     EXECUTE statement USING @language;

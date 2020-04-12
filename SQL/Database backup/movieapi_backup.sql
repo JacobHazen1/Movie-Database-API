@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `movieapi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `movieapi`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Linux (x86_64)
 --
 -- Host: localhost    Database: movieapi
@@ -379,7 +377,7 @@ CREATE TABLE `SHOWS` (
 
 LOCK TABLES `SHOWS` WRITE;
 /*!40000 ALTER TABLE `SHOWS` DISABLE KEYS */;
-INSERT INTO `SHOWS` VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(1,2),(2,2),(3,2),(4,2),(5,2),(6,2),(1,3),(2,3),(3,3),(4,3),(5,3),(6,3),(1,4),(2,4),(3,4),(4,4),(5,4),(6,4),(1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(1,7),(2,7),(3,7),(4,7),(5,7),(6,7),(1,8),(2,8),(3,8),(4,8),(5,8),(6,8),(1,9),(2,9),(3,9),(4,9),(5,9),(6,9),(1,10),(2,10),(3,10),(4,10),(5,10),(6,10),(1,11),(2,11),(3,11),(4,11),(5,11),(6,11),(1,12),(2,12),(3,12),(4,12),(5,12),(6,12);
+INSERT INTO `SHOWS` VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(1,2),(2,2),(3,2),(4,2),(5,2),(6,2),(1,3),(2,3),(3,3),(4,3),(5,3),(6,3),(1,4),(2,4),(3,4),(4,4),(5,4),(6,4),(1,5),(2,5),(3,5),(4,5),(5,5),(6,5),(1,6),(2,6),(3,6),(4,6),(5,6),(6,6),(1,7),(2,7),(3,7),(4,7),(5,7),(6,7),(1,8),(2,8),(3,8),(4,8),(5,8),(6,8),(1,10),(2,10),(3,10),(4,10),(5,10),(6,10),(1,11),(2,11),(3,11),(4,11),(5,11),(6,11),(1,12),(2,12),(3,12),(4,12),(5,12),(6,12);
 /*!40000 ALTER TABLE `SHOWS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -807,9 +805,13 @@ BEGIN
             M.Gross
         FROM
             Movie AS M,
-            MOVIE_LANGUAGE AS ML
+            MOVIE_LANGUAGE AS ML,
+            SHOWS AS S,
+            THEATER AS T
         WHERE
-            M.Movie_ID = ML.Movie_ID
+            M.Movie_ID = S.Movie_ID
+            AND S.Theater_ID = T.Theater_ID
+            AND M.Movie_ID = ML.Movie_ID
             AND ML.Language = ?';
     SET @language = `language`;
     EXECUTE statement USING @language;
@@ -839,9 +841,12 @@ BEGIN
             M.MPAA_rating,
             M.Description
         FROM
-            Movie AS M
+            Movie AS M,
+            SHOWS AS S,
+            THEATER AS T
         WHERE
-            M.Movie_ID
+            M.Movie_ID = S.Movie_ID
+            AND S.Theater_ID = T.Theater_ID
             AND M.MPAA_rating = ?';
     SET @mpaa_rating = mpaa_rating;
     EXECUTE statement USING @mpaa_rating;
@@ -1125,4 +1130,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-12 12:43:16
+-- Dump completed on 2020-04-12 15:05:52
