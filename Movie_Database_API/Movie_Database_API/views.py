@@ -7,20 +7,6 @@ import json
 
 cursor = connection.cursor()
 
-def my_custom_sql():
-    cursor.execute("SELECT User_ID, Username FROM movieapi.user")
-    row = cursor.fetchall()
-    return row
-
-
-def usertest(request):
-    cursor.callproc('movieapi.usertestSP')
-    sql = cursor.fetchall()
-    # dictionary comprehension
-    b = ([{"USER_ID": i[0], "USERNAME": i[1]} for i in sql])
-    return JsonResponse(b, safe=False)
-
-
 def home(request):
     resultSetJson = {'message': 'Welcome to our Movie Database API'}
     return JsonResponse(resultSetJson)
