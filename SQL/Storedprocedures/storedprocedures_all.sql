@@ -416,11 +416,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `give_rating_endpoint`(movie_title V
 BEGIN
         PREPARE statement FROM
             'INSERT INTO
-                review
+                REVIEW
             VALUES (
-                (SELECT Movie_ID FROM movie WHERE Title = ?),
-                (SELECT User_ID FROM user WHERE Username = ?),
-                (SELECT MAX(Review_ID) FROM review) + 1, ?, ?)';
+                (SELECT Movie_ID FROM Movie WHERE Title = ?),
+                (SELECT User_ID FROM User WHERE Username = ?),
+                (SELECT MAX(R.Review_ID) FROM REVIEW as R) + 1, ?, ?)';
         SET @movie_title = movie_title;
         SET @username = username;
         SET @rating = rating;

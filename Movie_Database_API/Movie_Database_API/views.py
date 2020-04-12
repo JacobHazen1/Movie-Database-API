@@ -454,6 +454,7 @@ def search_performer_endpoint(request):
         }
     return JsonResponse(resultSetJson)
 
+@csrf_exempt
 def give_rating_endpoint(request):
     if request.method == 'POST':
         try:
