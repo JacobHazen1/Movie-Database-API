@@ -33,14 +33,21 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `genre_endpoint`(genre VARCHAR(20))
 BEGIN
     PREPARE statement FROM
-        'SELECT DISTINCT M.Movie_ID, M.Title,
-                MG.Genre, M.Description
-        FROM 	movie AS M, movie_genre AS MG, 
-                shows AS S, theater AS T
-        WHERE	M.Movie_ID = MG.Movie_ID 
-                AND M.Movie_ID = S.Movie_ID
-                AND S.Theater_ID = T.Theater_ID
-                AND MG.Genre = ?';
+        'SELECT
+            DISTINCT M.Movie_ID,
+            M.Title,
+            MG.Genre,
+            M.Description
+        FROM
+            movie AS M,
+            movie_genre AS MG,
+            shows AS S,
+            theater AS T
+        WHERE
+            M.Movie_ID = MG.Movie_ID
+            AND M.Movie_ID = S.Movie_ID
+            AND S.Theater_ID = T.Theater_ID
+            AND MG.Genre = ?';
     SET @genre = genre;
     EXECUTE statement USING @genre;
     DEALLOCATE PREPARE statement;
