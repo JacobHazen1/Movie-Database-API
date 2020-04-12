@@ -33,6 +33,8 @@ INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Le
 INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('10', 'Kept apart by a terrible lie and a conservative society, two sisters born in Rio de Janeiro make their way through life each believing the other is living out her dreams half a world away.', '8.0', '139', 'R', 'Invisible Life', '5', '1700000');
 INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('11', 'Noah Baumbach\'s incisive and compassionate look at a marriage breaking up and a family staying together.', '8.0', '137', 'R', 'Marriage Story', '6', '2300000');
 INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('12', 'On the eve of their high school graduation, two academic superstars and best friends realize they should have worked less and played more. Determined not to fall short of their peers, the girls try to cram four years of fun into one night.', '7.2', '102', 'R', 'Booksmart', '6', '24900000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('13', 'A fantasy re-telling of the medieval story of Sir Gawain and the Green Knight.', '7.2', '125', 'R', 'The Green Knight', '6', '0');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('14', 'A bank teller discovers that hes actually an NPC inside a brutal, open world video game.', '7.8', '95', 'PG-13', 'Free Guy', '6', '0');
 
 UPDATE `movieapi`.`Movie` SET `Release` = '2019-11-27' WHERE (`Movie_ID` = '1');
 UPDATE `movieapi`.`Movie` SET `Release` = '2019-11-08' WHERE (`Movie_ID` = '2');
@@ -46,10 +48,14 @@ UPDATE `movieapi`.`Movie` SET `Release` = '2020-10-01' WHERE (`Movie_ID` = '9');
 UPDATE `movieapi`.`Movie` SET `Release` = '2020-04-03' WHERE (`Movie_ID` = '10');
 UPDATE `movieapi`.`Movie` SET `Release` = '2019-12-06' WHERE (`Movie_ID` = '11');
 UPDATE `movieapi`.`Movie` SET `Release` = '2019-05-24' WHERE (`Movie_ID` = '12');
+UPDATE `movieapi`.`Movie` SET `Release` = '2020-05-29' WHERE (`Movie_ID` = '13');
+UPDATE `movieapi`.`Movie` SET `Release` = '2020-12-11' WHERE (`Movie_ID` = '14');
 
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('1', 'English');
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('1', 'Spanish');
-
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('3', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('4', 'English');
+INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('5', 'English');
 
 -- Movie_genre
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('1', 'biography');
@@ -80,6 +86,12 @@ INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('11', 'comedy
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('11', 'drama');
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('11', 'romance');
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('12', 'comedy');
+INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('13', 'drama');
+INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('13', 'fantasy');
+INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('13', 'horror');
+INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('14', 'action');
+INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('14', 'adventure');
+INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('14', 'comedy');
 
 -- Film_worker
 INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('1', 'Martin', 'Charles', 'Scorsese', '77', '1942-11-17', 'True', 'False', '3');

@@ -175,7 +175,8 @@ BEGIN
             M.Overall_rating,
             M.Release,
             M.Length,
-            M.Description
+            M.Description,
+            M.Gross
         FROM
             Movie AS M,
             MOVIE_LANGUAGE AS ML
@@ -369,15 +370,24 @@ DROP procedure IF EXISTS `search_performer_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `search_performer_endpoint`(f_name VARCHAR(60), l_name VARCHAR(60))
 BEGIN
-		PREPARE statement FROM
-				'SELECT		M.Movie_ID, M.Overall_rating,
-							M.Title, M.Description
-				FROM 		Movie AS M, PERFORMS_IN AS P, FILM_WORKER AS F
-                WHERE		M.Movie_ID = P.Movie_ID AND P.Performer_ID = F.Worker_ID AND 
-									? = F.First_name AND ? = F.Last_name';
-		SET @performer_name = performer_name;
-        EXECUTE statement USING @performer_name;
-	DEALLOCATE PREPARE statement;
+    PREPARE statement FROM
+        'SELECT
+            M.Movie_ID,
+            M.Overall_rating,
+            M.Title,
+            M.Description
+        FROM
+            Movie AS M,
+            PERFORMS_IN AS P,
+            FILM_WORKER AS F
+        WHERE
+            M.Movie_ID = P.Movie_ID
+            AND P.Performer_ID = F.Worker_ID
+            AND ? = F.First_name
+            AND ? = F.Last_name';
+    SET @performer_name = performer_name;
+    EXECUTE statement USING @performer_name;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
@@ -387,21 +397,21 @@ DELIMITER ;
 DROP procedure IF EXISTS `give_rating_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `give_rating_endpoint`(movie_title VARCHAR(50), username VARCHAR(15),
-																		rating INT, r_description TEXT)
+                                                                        rating INT, r_description TEXT)
 BEGIN
-		PREPARE statement FROM
-				'INSERT INTO review VALUES (
-						(SELECT Movie_ID FROM movie WHERE Title = ?),
-                        (SELECT User_ID FROM user WHERE Username = ?),
-                        (SELECT MAX(Review_ID) FROM review) + 1,
-                        ?,
-                        ?)';
-		SET @movie_title = movie_title;
+        PREPARE statement FROM
+            'INSERT INTO
+                review
+            VALUES (
+                (SELECT Movie_ID FROM movie WHERE Title = ?),
+                (SELECT User_ID FROM user WHERE Username = ?),
+                (SELECT MAX(Review_ID) FROM review) + 1, ?, ?)';
+        SET @movie_title = movie_title;
         SET @username = username;
         SET @rating = rating;
         SET @r_description = r_description;
         EXECUTE statement USING @movie_title, @username, @rating, @r_description;
-	DEALLOCATE PREPARE statement;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
@@ -412,15 +422,21 @@ DROP procedure IF EXISTS `new_movies_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `new_movies_endpoint`(r_date DATE)
 BEGIN
-		PREPARE statement FROM
-				'SELECT		M.Movie_ID, M.Overall_rating,
-							M.Title, M.Description
-				FROM		Movie as M
-                WHERE		M.Release >= ?
-                ORDER BY	M.Release DESC';
-		SET @r_date = r_date;
+        PREPARE statement FROM
+            'SELECT
+                M.Movie_ID,
+                M.Overall_rating,
+                M.Title,
+                M.Description
+            FROM
+                Movie AS M
+            WHERE
+                M.Release >= ?
+            ORDER BY
+                M.Release DESC';
+        SET @r_date = r_date;
         EXECUTE statement USING @r_date;
-	DEALLOCATE PREPARE statement;
+    DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
 
@@ -431,19 +447,32 @@ DROP procedure IF EXISTS `top_gross_endpoint`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `top_gross_endpoint`(in_theatres BOOL, count INT)
 BEGIN
-		PREPARE statement FROM
-				'SELECT		DISTINCT M.Movie_ID, M.Overall_rating,
-							M.Title, M.Description, M.gross
-				FROM		Movie AS M LEFT JOIN SHOWS AS s ON M.Movie_ID = S.Movie_ID
-                WHERE		(CASE
-								WHEN	? = True
-									THEN	(M.Movie_ID = S.Movie_ID)
-                                Else	(S.Movie_ID IS NULL AND M.Movie_ID IS NOT NULL))
-                ORDER BY	M.Gross DESC
-                LIMIT		?';
-		SET @in_theatres = in_theatres;
-        SET @count = count;
-        EXECUTE statement USING @in_theatres, @count;
-	DEALLOCATE PREPARE statement;
-    END$$
-    DELIMITER ;
+    PREPARE statement FROM
+        'SELECT
+            DISTINCT M.Movie_ID,
+            M.Overall_rating,
+            M.Title,
+            M.Description,
+            M.gross
+        FROM
+            Movie AS M
+            LEFT JOIN SHOWS AS s ON M.Movie_ID = S.Movie_ID
+        WHERE
+            (
+                CASE
+                    WHEN ? = TRUE THEN (M.Movie_ID = S.Movie_ID)
+                    ELSE (
+                        S.Movie_ID IS NULL
+                        AND M.Movie_ID IS NOT NULL
+                    )
+                )
+                ORDER BY
+                    M.Gross DESC
+                LIMIT
+                    ?';
+    SET @in_theatres = in_theatres;
+    SET @count = count;
+    EXECUTE statement USING @in_theatres, @count;
+DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
