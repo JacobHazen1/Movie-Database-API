@@ -314,10 +314,10 @@ def add_movie_endpoint(request):
             length = request.POST.get('length')
             description = request.POST.get('description')
             mpaa_rating = request.POST.get('mpaa_rating')
-
+            
+            # Return an error response if invalid data is input
             if(title == None):
                 raise Exception('ValueError. No title was inserted')
-
             if (mpaa_rating != 'PG' and mpaa_rating != 'R' and mpaa_rating != 'PG-13' and mpaa_rating != 'G'):
                 raise Exception('ValueError. Invalid MPAA rating was inserted')
 
@@ -332,16 +332,19 @@ def add_movie_endpoint(request):
             # Get the primary key of the created movie;
             movie_id = cursor.fetchall()[0][0]
 
+            # insert each genre into database
             for genre in genres:
-                # insert each genre into database
                 cursor.callproc('movieapi.add_genre', [movie_id, genre])
 
             # insert each director into database
             for director in directors:
                 # split names into name components
                 names = director.split(' ')
+
+                # get the first name
                 f_name = names[0]
                 
+                # Get the last and middle names
                 if(len(names) > 2):
                     # All the names that arent in the first name or last name is joined into middle name
                     m_name = ' '.join(names[1:len(names) - 1])
@@ -353,15 +356,20 @@ def add_movie_endpoint(request):
                     m_name = None
                     l_name = None
 
+                # Insert the director into the database
                 cursor.callproc('movieapi.add_film_worker', [f_name, m_name, l_name, 1, 0])
                 director_id = cursor.fetchall()[0][0]
                 cursor.callproc('movieapi.add_director_to_movie', [movie_id, director_id])
 
+            # insert each performer into the database
             for performer in performers:
                 # split names into name components
                 names = performer.split(' ')
+
+                # get the first name
                 f_name = names[0]
 
+                # Get the last and middle names
                 if(len(names) > 2):
                     # All the names that arent in the first name or last name is joined into middle name
                     m_name = ' '.join(names[1:len(names) - 1])
@@ -372,17 +380,18 @@ def add_movie_endpoint(request):
                 else:
                     m_name = None
                     l_name = None
-
+                
+                # Insert the performer into the database
                 cursor.callproc('movieapi.add_film_worker', [f_name, m_name, l_name, 0, 1])
                 actor_id = cursor.fetchall()[0][0]
-                # insert each performer into database
                 cursor.callproc('movieapi.add_performer_to_movie', [movie_id, actor_id])
             
+            # insert each langauge of the movie into database
             for langauge in languages:
-                # insert each langauge into database
+                
                 cursor.callproc('movieapi.add_language', [movie_id, langauge])
 
-            # Construct list of dict objects for Json ouput
+            # Construct the success message
             success_string = "Successfully added movie " + str(title) + "with Movie_ID " + str(movie_id)
             resultSetJson = {'message': success_string, "success": True}
         except Exception as ex:
