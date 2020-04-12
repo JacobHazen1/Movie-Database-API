@@ -27,6 +27,7 @@ urlpatterns = [
     path('mpaa_rating/', views.mpaa_rating_endpoint, name='mpaa_rating_endpoint'), # Specific MPAA rating endpoint
     path('language/', views.language_endpoint, name='language_endpoint'), # Specific language endpoint
     path('add_movie/', views.add_movie_endpoint, name='add_movie_endpoint'), # Endpoint for adding movies
+    path('upcoming_movies/', views.upcoming_movies_endpoint, name='upcoming_movies_endpoint'), # Endpoint for upcming movies
 	path('search_performer/', views.search_performer_endpoint, name='search_performer_endpoint'), # Search performer endpoint
 	path('give_rating/', views.give_rating_endpoint, name='give_rating_endpoint'), # Give rating endpoint
 	path('new_movies/', views.new_movies_endpoint, name='new_movies_endpoint'), # New movies endpoint
