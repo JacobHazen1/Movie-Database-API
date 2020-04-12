@@ -460,7 +460,7 @@ DELIMITER ;
 -- -----------------------------
 DROP procedure IF EXISTS `top_gross_endpoint`;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `top_gross_endpoint`(in_theatres BOOL, count INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `top_gross_endpoint`(in_theatres BOOL, `count` INT)
 BEGIN
     PREPARE statement FROM
         'SELECT
@@ -471,22 +471,23 @@ BEGIN
             M.gross
         FROM
             Movie AS M
-            LEFT JOIN SHOWS AS s ON M.Movie_ID = S.Movie_ID
+            LEFT JOIN SHOWS AS S ON M.Movie_ID = S.Movie_ID
         WHERE
             (
                 CASE
                     WHEN ? = TRUE THEN (M.Movie_ID = S.Movie_ID)
-                    ELSE (
-                        S.Movie_ID IS NULL
-                        AND M.Movie_ID IS NOT NULL
-                    )
+                ELSE (
+                    S.Movie_ID IS NULL
+                    AND M.Movie_ID IS NOT NULL
                 )
-                ORDER BY
-                    M.Gross DESC
-                LIMIT
-                    ?';
+                END
+            )
+            ORDER BY
+                M.Gross DESC
+            LIMIT
+                ?';
     SET @in_theatres = in_theatres;
-    SET @count = count;
+    SET @count = `count`;
     EXECUTE statement USING @in_theatres, @count;
 DEALLOCATE PREPARE statement;
 END$$
