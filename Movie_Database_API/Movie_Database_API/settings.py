@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'Movie_Database_API.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': environ.get('DB_NAME'),
-        'USER': environ.get('USER'),
-        'PASSWORD':  environ.get('PASSWORD'),
-        'HOST': environ.get('HOST'),   # Or an IP Address that your DB is hosted on
+        'NAME': 'movieapi',
+        'USER': 'root',
+        'PASSWORD':  'password',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
