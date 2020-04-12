@@ -286,7 +286,7 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_language`(Movie_ID INT, `language` VARCHAR(50))
 BEGIN
     PREPARE statement FROM
-    'INSERT INTO MOVIE_GENRE (Movie_ID, Genre) VALUES
+    'INSERT INTO MOVIE_LANGUAGE (Movie_ID, Language) VALUES
     (?, ?)';
 	SET @Movie_ID = Movie_ID;
     SET @language = `language`;
