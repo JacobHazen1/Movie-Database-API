@@ -399,8 +399,9 @@ BEGIN
             AND P.Performer_ID = F.Worker_ID
             AND ? = F.First_name
             AND ? = F.Last_name';
-    SET @performer_name = performer_name;
-    EXECUTE statement USING @performer_name;
+    SET @f_name = f_name;
+    SET @l_name = l_name;
+    EXECUTE statement USING @f_name, @l_name;
     DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
@@ -445,7 +446,7 @@ BEGIN
             FROM
                 Movie AS M
             WHERE
-                M.Release >= ?
+                M.Release <= ?
             ORDER BY
                 M.Release DESC';
         SET @r_date = r_date;

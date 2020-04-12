@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `movieapi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `movieapi`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Linux (x86_64)
 --
 -- Host: localhost    Database: movieapi
@@ -733,14 +735,21 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `genre_endpoint`(genre VARCHAR(20))
 BEGIN
     PREPARE statement FROM
-        'SELECT DISTINCT M.Movie_ID, M.Title,
-                MG.Genre, M.Description
-        FROM 	movie AS M, movie_genre AS MG, 
-                shows AS S, theater AS T
-        WHERE	M.Movie_ID = MG.Movie_ID 
-                AND M.Movie_ID = S.Movie_ID
-                AND S.Theater_ID = T.Theater_ID
-                AND MG.Genre = ?';
+        'SELECT
+            DISTINCT M.Movie_ID,
+            M.Title,
+            MG.Genre,
+            M.Description
+        FROM
+            movie AS M,
+            movie_genre AS MG,
+            shows AS S,
+            theater AS T
+        WHERE
+            M.Movie_ID = MG.Movie_ID
+            AND M.Movie_ID = S.Movie_ID
+            AND S.Theater_ID = T.Theater_ID
+            AND MG.Genre = ?';
     SET @genre = genre;
     EXECUTE statement USING @genre;
     DEALLOCATE PREPARE statement;
@@ -878,7 +887,7 @@ BEGIN
             FROM
                 Movie AS M
             WHERE
-                M.Release >= ?
+                M.Release <= ?
             ORDER BY
                 M.Release DESC';
         SET @r_date = r_date;
@@ -950,8 +959,9 @@ BEGIN
             AND P.Performer_ID = F.Worker_ID
             AND ? = F.First_name
             AND ? = F.Last_name';
-    SET @performer_name = performer_name;
-    EXECUTE statement USING @performer_name;
+    SET @f_name = f_name;
+    SET @l_name = l_name;
+    EXECUTE statement USING @f_name, @l_name;
     DEALLOCATE PREPARE statement;
 END ;;
 DELIMITER ;
@@ -1130,4 +1140,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-12 15:05:52
+-- Dump completed on 2020-04-12 16:50:48
