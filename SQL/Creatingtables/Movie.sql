@@ -7,5 +7,6 @@ CREATE TABLE movieapi.Movie(
     Title VARCHAR(50),
     `Release` DATE,
     Movie_Creator_ID INT,
+    Gross BIGINT,
     FOREIGN KEY (Movie_Creator_ID) REFERENCES MOVIE_CREATOR(Movie_Creator_ID)
 );

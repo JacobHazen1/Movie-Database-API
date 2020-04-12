@@ -6,6 +6,11 @@ INSERT INTO `movieapi`.`ADMIN` (`Username`, `Password`) VALUES ('albert', 'alber
 INSERT INTO `movieapi`.`ADMIN` (`Username`, `Password`) VALUES ('sarhan', 'sarhan');
 INSERT INTO `movieapi`.`ADMIN` (`Username`, `Password`) VALUES ('tanuja', 'tanuja');
 
+-- User
+INSERT INTO `movieapi`.`User` (`User_ID`, `Username`, `Password`) VALUES ('1', 'John', 'Lennon');
+INSERT INTO `movieapi`.`User` (`User_ID`, `Username`, `Password`) VALUES ('2', 'Paul', 'McCartney');
+INSERT INTO `movieapi`.`User` (`User_ID`, `Username`, `Password`) VALUES ('3', 'George', 'Harrison');
+INSERT INTO `movieapi`.`User` (`User_ID`, `Username`, `Password`) VALUES ('4', 'Ringo', 'Starr');
 
 -- Movie creator table
 INSERT INTO `movieapi`.`MOVIE_CREATOR` (`Movie_Creator_ID`, `Name`, `Description`, `Creator_type`, `Added_by_admin`) VALUES ('1', 'Albert Studios', 'Albert Studios is a mid-size movie publisher in Calgary', ' studio', '1');
@@ -16,20 +21,18 @@ INSERT INTO `movieapi`.`MOVIE_CREATOR` (`Movie_Creator_ID`, `Name`, `Description
 INSERT INTO `movieapi`.`MOVIE_CREATOR` (`Movie_Creator_ID`, `Name`, `Description`, `Creator_type`, `Added_by_admin`) VALUES ('6', 'Tanuja & co.', 'T Studios is a mid-size movie publisher in Calgary', 'independent', '6');
 
 -- Movies Table
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('1', 'An aging hitman recalls his time with the mob and the intersecting events with his friend, Jimmy Hoffa, through the 1950-70s.', '7.9', '209', 'R', 'The Irishman', '1');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('2', 'A poor family, the Kims, con their way into becoming the servants of a rich family, the Parks. But their easy life gets complicated when their deception is threatened with exposure.', '8.6', '132', 'R', 'Parasite', '1');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('3', 'In early 18th century England, a frail Queen Anne occupies the throne and her close friend, Lady Sarah, governs the country in her stead. When a new servant, Abigail, arrives, her charm endears her to Sarah.', '7.6', '119', 'R', 'The Favourite', '2');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('4', 'A Chinese family discovers their grandmother has only a short while left to live and decide to keep her in the dark, scheduling a wedding to gather before she dies.', '7.6', '100', 'PG', 'The Farewell I', '2');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('5', 'A family of small-time crooks take in a child they find outside in the cold.', '8.0', '121', 'R', 'Shoplifters', '3');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('6', 'Jo March (Saoirse Ronan) reflects back and forth on her life, telling the beloved story of the March sisters - four young women each determined to live life on her own terms.', '7.9', '135', 'PG', ' Little Women', '3');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('7', 'After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.', '8.4', '181', 'PG-13', 'Avengers: Endgame', '4');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('8', 'After the death of her grandmother, Teresa comes home to her matriarchal village in a near-future Brazil to find a succession of sinister events that mobilizes all of its residents.', '7.7', '131', 'R', 'Bacurau', '4');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('9', 'April 6th, 1917. As a regiment assembles to wage war deep in enemy territory, two soldiers are assigned to race against time and deliver a message that will stop 1,600 men from walking straight into a deadly trap.', '8.4', '119', 'R', '1917', '5');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('10', 'Kept apart by a terrible lie and a conservative society, two sisters born in Rio de Janeiro make their way through life each believing the other is living out her dreams half a world away.', '8.0', '139', 'R', 'Invisible Life', '5');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('11', 'Noah Baumbach\'s incisive and compassionate look at a marriage breaking up and a family staying together.', '8.0', '137', 'R', 'Marriage Story', '6');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('12', 'On the eve of their high school graduation, two academic superstars and best friends realize they should have worked less and played more. Determined not to fall short of their peers, the girls try to cram four years of fun into one night.', '7.2', '102', 'R', 'Booksmart', '6');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('13', 'A fantasy re-telling of the medieval story of Sir Gawain and the Green Knight.', '7.2', '125', 'R', 'The Green Knight', '6');
-INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`) VALUES ('14', 'A bank teller discovers that hes actually an NPC inside a brutal, open world video game.', '7.8', '95', 'PG-13', 'Free Guy', '6');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('1', 'An aging hitman recalls his time with the mob and the intersecting events with his friend, Jimmy Hoffa, through the 1950-70s.', '7.9', '209', 'R', 'The Irishman', '1', '8000000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('2', 'A poor family, the Kims, con their way into becoming the servants of a rich family, the Parks. But their easy life gets complicated when their deception is threatened with exposure.', '8.6', '132', 'R', 'Parasite', '1', '266900000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('3', 'In early 18th century England, a frail Queen Anne occupies the throne and her close friend, Lady Sarah, governs the country in her stead. When a new servant, Abigail, arrives, her charm endears her to Sarah.', '7.6', '119', 'R', 'The Favourite', '2', '95900000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('4', 'A Chinese family discovers their grandmother has only a short while left to live and decide to keep her in the dark, scheduling a wedding to gather before she dies.', '7.6', '100', 'PG', 'The Farewell I', '2', '22500000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('5', 'A family of small-time crooks take in a child they find outside in the cold.', '8.0', '121', 'R', 'Shoplifters', '3', '72700000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('6', 'Jo March (Saoirse Ronan) reflects back and forth on her life, telling the beloved story of the March sisters - four young women each determined to live life on her own terms.', '7.9', '135', 'PG', ' Little Women', '3', '206000000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('7', 'After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.', '8.4', '181', 'PG-13', 'Avengers: Endgame', '4', '2800000000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('8', 'After the death of her grandmother, Teresa comes home to her matriarchal village in a near-future Brazil to find a succession of sinister events that mobilizes all of its residents.', '7.7', '131', 'R', 'Bacurau', '4', '3400000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('9', 'April 6th, 1917. As a regiment assembles to wage war deep in enemy territory, two soldiers are assigned to race against time and deliver a message that will stop 1,600 men from walking straight into a deadly trap.', '8.4', '119', 'R', '1917', '5', '368300000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('10', 'Kept apart by a terrible lie and a conservative society, two sisters born in Rio de Janeiro make their way through life each believing the other is living out her dreams half a world away.', '8.0', '139', 'R', 'Invisible Life', '5', '1700000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('11', 'Noah Baumbach\'s incisive and compassionate look at a marriage breaking up and a family staying together.', '8.0', '137', 'R', 'Marriage Story', '6', '2300000');
+INSERT INTO `movieapi`.`Movie` (`Movie_ID`, `Description`, `Overall_rating`, `Length`, `MPAA_rating`, `Title`, `Movie_Creator_ID`, `Gross`) VALUES ('12', 'On the eve of their high school graduation, two academic superstars and best friends realize they should have worked less and played more. Determined not to fall short of their peers, the girls try to cram four years of fun into one night.', '7.2', '102', 'R', 'Booksmart', '6', '24900000');
 
 UPDATE `movieapi`.`Movie` SET `Release` = '2019-11-27' WHERE (`Movie_ID` = '1');
 UPDATE `movieapi`.`Movie` SET `Release` = '2019-11-08' WHERE (`Movie_ID` = '2');
@@ -43,14 +46,9 @@ UPDATE `movieapi`.`Movie` SET `Release` = '2020-10-01' WHERE (`Movie_ID` = '9');
 UPDATE `movieapi`.`Movie` SET `Release` = '2020-04-03' WHERE (`Movie_ID` = '10');
 UPDATE `movieapi`.`Movie` SET `Release` = '2019-12-06' WHERE (`Movie_ID` = '11');
 UPDATE `movieapi`.`Movie` SET `Release` = '2019-05-24' WHERE (`Movie_ID` = '12');
-UPDATE `movieapi`.`Movie` SET `Release` = '2020-05-29' WHERE (`Movie_ID` = '13');
-UPDATE `movieapi`.`Movie` SET `Release` = '2020-12-11' WHERE (`Movie_ID` = '14');
 
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('1', 'English');
 INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('1', 'Spanish');
-INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('3', 'English');
-INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('4', 'English');
-INSERT INTO `movieapi`.`MOVIE_LANGUAGE` (`Movie_ID`, `Language`) VALUES ('5', 'English');
 
 
 -- Movie_genre
@@ -82,12 +80,67 @@ INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('11', 'comedy
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('11', 'drama');
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('11', 'romance');
 INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('12', 'comedy');
-INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('13', 'drama');
-INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('13', 'fantasy');
-INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('13', 'horror');
-INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('14', 'action');
-INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('14', 'adventure');
-INSERT INTO `movieapi`.`MOVIE_GENRE` (`Movie_ID`, `Genre`) VALUES ('14', 'comedy');
+
+-- Film_worker
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('1', 'Martin', 'Charles', 'Scorsese', '77', '1942-11-17', 'True', 'False', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('2', 'Robert', 'Anthony', 'De Niro', '76', '1943-08-17', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('3', 'Al', 'James', 'Pacino', '79', '1940-04-25', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('4', 'Bong', '', 'Joon-ho', '50', '1969-09-14', 'True', 'False', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('5', 'Kang-ho Song', '', 'Song', '53', '1967-01-17', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('6', 'Georgios', 'Yorgos', 'Lanthimos', '46', '1973-05-27', 'True', 'False', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('7', 'Olivia', '', 'Colman', '46', '1974-01-30', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('8', 'Emma', 'Jean', 'Stone', '31', '1988-11-06', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('9', 'Lulu', '', 'Wang', '37', '1983-02-25', 'True', 'False', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('10', 'Awkwafina', '', '', '31', '1988-06-2', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('11', 'Hirokazu', '', 'Koreeda', '57', '1962-06-06', 'True', 'False', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('12', 'Greta', 'Celeste', 'Gerwig', '36', '1983-08-04', 'True', 'False', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('13', 'Saoirse', 'Una', 'Ronan', '25', '1994-04-12', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('14', 'Florence', '', 'Pugh', '24', '1996-01-03', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('15', 'Joe', '', 'Russo', '48', '1971-07-18', 'True', 'False', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('16', 'Anthony', '', 'Russo', '50', '1970-02-03', 'True', 'False', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('17', 'Chris', 'Robert', 'Evans', '38', '1981-06-13', 'False', 'True', '3');
+INSERT INTO `movieapi`.`FILM_WORKER` (`Worker_ID`, `First_name`, `Middle_name`, `Last_name`, `Age`, `bDate`, `Director_flag`, `Performer_flag`, `Added_by_admin`) VALUES ('18', 'Robert', 'John', 'Downey Jr.', '55', '1965-04-04', 'False', 'True', '3');
+
+-- directs
+INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('1', '1');
+INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('4', '2');
+INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('6', '3');
+INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('9', '4');
+INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('11', '5');
+INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('12', '6');
+INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('15', '7');
+INSERT INTO `movieapi`.`DIRECTS` (`Director_ID`, `Movie_ID`) VALUES ('16', '7');
+
+-- Performs_in
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('2', '1');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('3', '1');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('5', '2');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('7', '3');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('8', '3');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('10', '4');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('13', '6');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('14', '6');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('17', '7');
+INSERT INTO `movieapi`.`PERFORMS_IN` (`Performer_ID`, `Movie_ID`) VALUES ('18', '7');
+
+-- character
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('2', '1', 'Frank Sheeran');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('3', '1', 'Jimmy Hoffa');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('5', '2', 'Ki Taek');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('7', '3', 'Queen Anne');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('8', '3', 'Abigail');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('10', '4', 'Billi');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('13', '6', 'Jo March');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('14', '6', 'Amy March');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('17', '7', 'Steve Rogers / Captain America');
+INSERT INTO `movieapi`.`CHARACTER` (`Performer_ID`, `Movie_ID`, `Character_name`) VALUES ('18', '7', 'Tony Stark / Iron Man');
+
+-- review
+INSERT INTO `movieapi`.`REVIEW` (`Movie_ID`, `Reviewer_ID`, `Review_ID`, `Rating`, `Description`) VALUES ('1', '1', '1', '6', 'It was too long, I fell asleep!');
+INSERT INTO `movieapi`.`REVIEW` (`Movie_ID`, `Reviewer_ID`, `Review_ID`, `Rating`, `Description`) VALUES ('7', '1', '2', '9', 'It was the perfect length!');
+INSERT INTO `movieapi`.`REVIEW` (`Movie_ID`, `Reviewer_ID`, `Review_ID`, `Rating`, `Description`) VALUES ('2', '2', '3', '10', 'Truly a masterpiece.');
+INSERT INTO `movieapi`.`REVIEW` (`Movie_ID`, `Reviewer_ID`, `Review_ID`, `Rating`, `Description`) VALUES ('4', '3', '4', '8', 'Pleasantly surprised me.');
+INSERT INTO `movieapi`.`REVIEW` (`Movie_ID`, `Reviewer_ID`, `Review_ID`, `Rating`, `Description`) VALUES ('7', '4', '5', '0', 'No Batman, waste of time.');
 
 -- theater
 INSERT INTO `movieapi`.`THEATER` (`Theater_ID`, `Phone_Number`, `Zip_code`, `Address`, `City`, `Name`, `Opening_time`, `Closing_time`, `Registered_by_admin`) VALUES ('1', '111-111-1111', 'ABC12', '1 Hutington Drive', 'Calgary', 'jacob theatres', '07:00:00', '01:00:00', '1');
