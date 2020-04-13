@@ -122,6 +122,122 @@ BEGIN
 END$$
 DELIMITER ;
 
+-- ----------------------------------
+-- Search Performer Stored Procedure
+-- ----------------------------------
+DROP procedure IF EXISTS `search_performer_endpoint`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `search_performer_endpoint`(f_name VARCHAR(60), l_name VARCHAR(60))
+BEGIN
+    PREPARE statement FROM
+        'SELECT
+            M.Movie_ID,
+            M.Overall_rating,
+            M.Title,
+            M.Description
+        FROM
+            Movie AS M,
+            PERFORMS_IN AS P,
+            FILM_WORKER AS F
+        WHERE
+            M.Movie_ID = P.Movie_ID
+            AND P.Performer_ID = F.Worker_ID
+            AND ? = F.First_name
+            AND ? = F.Last_name';
+    SET @f_name = f_name;
+    SET @l_name = l_name;
+    EXECUTE statement USING @f_name, @l_name;
+    DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
+
+-- -----------------------------
+-- Give Rating Stored Procedure
+-- -----------------------------
+DROP procedure IF EXISTS `give_rating_endpoint`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `give_rating_endpoint`(movie_title VARCHAR(50), username VARCHAR(15),
+                                                                        rating INT, r_description TEXT)
+BEGIN
+        PREPARE statement FROM
+            'INSERT INTO
+                REVIEW
+            VALUES (
+                (SELECT Movie_ID FROM Movie WHERE Title = ?),
+                (SELECT User_ID FROM User WHERE Username = ?),
+                (SELECT MAX(R.Review_ID) FROM REVIEW as R) + 1, ?, ?)';
+        SET @movie_title = movie_title;
+        SET @username = username;
+        SET @rating = rating;
+        SET @r_description = r_description;
+        EXECUTE statement USING @movie_title, @username, @rating, @r_description;
+    DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
+
+-- -----------------------------
+-- New Movies Stored Procedure
+-- -----------------------------
+DROP procedure IF EXISTS `new_movies_endpoint`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_movies_endpoint`(r_date DATE)
+BEGIN
+        PREPARE statement FROM
+            'SELECT
+                M.Movie_ID,
+                M.Overall_rating,
+                M.Title,
+                M.Description
+            FROM
+                Movie AS M
+            WHERE
+                M.Release <= ?
+            ORDER BY
+                M.Release DESC';
+        SET @r_date = r_date;
+        EXECUTE statement USING @r_date;
+    DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
+
+-- -----------------------------
+-- Top Gross Stored Procedure
+-- -----------------------------
+DROP procedure IF EXISTS `top_gross_endpoint`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `top_gross_endpoint`(in_theatres BOOL, `count` INT)
+BEGIN
+    PREPARE statement FROM
+        'SELECT
+            DISTINCT M.Movie_ID,
+            M.Overall_rating,
+            M.Title,
+            M.Description,
+            M.gross
+        FROM
+            Movie AS M
+            LEFT JOIN SHOWS AS S ON M.Movie_ID = S.Movie_ID
+        WHERE
+            (
+                CASE
+                    WHEN ? = TRUE THEN (M.Movie_ID = S.Movie_ID)
+                ELSE (
+                    S.Movie_ID IS NULL
+                    AND M.Movie_ID IS NOT NULL
+                )
+                END
+            )
+            ORDER BY
+                M.Gross DESC
+            LIMIT
+                ?';
+    SET @in_theatres = in_theatres;
+    SET @count = `count`;
+    EXECUTE statement USING @in_theatres, @count;
+DEALLOCATE PREPARE statement;
+END$$
+DELIMITER ;
+
 -- -------------------------
 -- MPAA Rating endpoint
 -- -------------------------
@@ -374,121 +490,5 @@ BEGIN
     SET @language = `language`;
     EXECUTE statement USING @Movie_ID, @language;
     DEALLOCATE PREPARE statement;
-END$$
-DELIMITER ;
-
--- ----------------------------------
--- Search Performer Stored Procedure
--- ----------------------------------
-DROP procedure IF EXISTS `search_performer_endpoint`;
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `search_performer_endpoint`(f_name VARCHAR(60), l_name VARCHAR(60))
-BEGIN
-    PREPARE statement FROM
-        'SELECT
-            M.Movie_ID,
-            M.Overall_rating,
-            M.Title,
-            M.Description
-        FROM
-            Movie AS M,
-            PERFORMS_IN AS P,
-            FILM_WORKER AS F
-        WHERE
-            M.Movie_ID = P.Movie_ID
-            AND P.Performer_ID = F.Worker_ID
-            AND ? = F.First_name
-            AND ? = F.Last_name';
-    SET @f_name = f_name;
-    SET @l_name = l_name;
-    EXECUTE statement USING @f_name, @l_name;
-    DEALLOCATE PREPARE statement;
-END$$
-DELIMITER ;
-
--- -----------------------------
--- Give Rating Stored Procedure
--- -----------------------------
-DROP procedure IF EXISTS `give_rating_endpoint`;
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `give_rating_endpoint`(movie_title VARCHAR(50), username VARCHAR(15),
-                                                                        rating INT, r_description TEXT)
-BEGIN
-        PREPARE statement FROM
-            'INSERT INTO
-                REVIEW
-            VALUES (
-                (SELECT Movie_ID FROM Movie WHERE Title = ?),
-                (SELECT User_ID FROM User WHERE Username = ?),
-                (SELECT MAX(R.Review_ID) FROM REVIEW as R) + 1, ?, ?)';
-        SET @movie_title = movie_title;
-        SET @username = username;
-        SET @rating = rating;
-        SET @r_description = r_description;
-        EXECUTE statement USING @movie_title, @username, @rating, @r_description;
-    DEALLOCATE PREPARE statement;
-END$$
-DELIMITER ;
-
--- -----------------------------
--- New Movies Stored Procedure
--- -----------------------------
-DROP procedure IF EXISTS `new_movies_endpoint`;
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `new_movies_endpoint`(r_date DATE)
-BEGIN
-        PREPARE statement FROM
-            'SELECT
-                M.Movie_ID,
-                M.Overall_rating,
-                M.Title,
-                M.Description
-            FROM
-                Movie AS M
-            WHERE
-                M.Release <= ?
-            ORDER BY
-                M.Release DESC';
-        SET @r_date = r_date;
-        EXECUTE statement USING @r_date;
-    DEALLOCATE PREPARE statement;
-END$$
-DELIMITER ;
-
--- -----------------------------
--- Top Gross Stored Procedure
--- -----------------------------
-DROP procedure IF EXISTS `top_gross_endpoint`;
-DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `top_gross_endpoint`(in_theatres BOOL, `count` INT)
-BEGIN
-    PREPARE statement FROM
-        'SELECT
-            DISTINCT M.Movie_ID,
-            M.Overall_rating,
-            M.Title,
-            M.Description,
-            M.gross
-        FROM
-            Movie AS M
-            LEFT JOIN SHOWS AS S ON M.Movie_ID = S.Movie_ID
-        WHERE
-            (
-                CASE
-                    WHEN ? = TRUE THEN (M.Movie_ID = S.Movie_ID)
-                ELSE (
-                    S.Movie_ID IS NULL
-                    AND M.Movie_ID IS NOT NULL
-                )
-                END
-            )
-            ORDER BY
-                M.Gross DESC
-            LIMIT
-                ?';
-    SET @in_theatres = in_theatres;
-    SET @count = `count`;
-    EXECUTE statement USING @in_theatres, @count;
-DEALLOCATE PREPARE statement;
 END$$
 DELIMITER ;
