@@ -774,11 +774,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `give_rating_endpoint`(movie_title V
 BEGIN
         PREPARE statement FROM
             'INSERT INTO
-                review
+                REVIEW
             VALUES (
-                (SELECT Movie_ID FROM movie WHERE Title = ?),
-                (SELECT User_ID FROM user WHERE Username = ?),
-                (SELECT MAX(Review_ID) FROM review) + 1, ?, ?)';
+                (SELECT Movie_ID FROM Movie WHERE Title = ?),
+                (SELECT User_ID FROM User WHERE Username = ?),
+                (SELECT MAX(R.Review_ID) FROM REVIEW as R) + 1, ?, ?)';
         SET @movie_title = movie_title;
         SET @username = username;
         SET @rating = rating;
@@ -1063,7 +1063,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `top_gross_endpoint`(in_theatres BOOL, count INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `top_gross_endpoint`(in_theatres BOOL, `count` INT)
 BEGIN
     PREPARE statement FROM
         'SELECT
@@ -1074,22 +1074,23 @@ BEGIN
             M.gross
         FROM
             Movie AS M
-            LEFT JOIN SHOWS AS s ON M.Movie_ID = S.Movie_ID
+            LEFT JOIN SHOWS AS S ON M.Movie_ID = S.Movie_ID
         WHERE
             (
                 CASE
                     WHEN ? = TRUE THEN (M.Movie_ID = S.Movie_ID)
-                    ELSE (
-                        S.Movie_ID IS NULL
-                        AND M.Movie_ID IS NOT NULL
-                    )
+                ELSE (
+                    S.Movie_ID IS NULL
+                    AND M.Movie_ID IS NOT NULL
                 )
-                ORDER BY
-                    M.Gross DESC
-                LIMIT
-                    ?';
+                END
+            )
+            ORDER BY
+                M.Gross DESC
+            LIMIT
+                ?';
     SET @in_theatres = in_theatres;
-    SET @count = count;
+    SET @count = `count`;
     EXECUTE statement USING @in_theatres, @count;
 DEALLOCATE PREPARE statement;
 END ;;
@@ -1140,4 +1141,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-12 16:50:48
+-- Dump completed on 2020-04-12 18:02:41
