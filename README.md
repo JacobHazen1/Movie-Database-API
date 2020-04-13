@@ -4,13 +4,13 @@ To make movie data more accessible to our target audience, we have decided to de
 ## Django Version  
 2.1.7
 
-## SQL  
-There is a SQL readme in the sql folder, Im holding all the queries there
+## MySQL Version
+8.0.19
 
 ## Pip installs needed  
 `pip install Django`  
 `pip install PyMySQL`  
-I use environment file to store my passwords. You can use anything you would like. First create a file `.env` then pip install the following:  
+I use environment file to store my passwords/username. First create a file `.env` then pip install the following:  
 `pip install environ`  
 `pip install python-dotenv`  
 
