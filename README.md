@@ -1,5 +1,6 @@
-# Movie-Database-API
-
+# Movie-Database-API  
+To make movie data more accessible to our target audience, we have decided to design a database that makes information on movies accessible and convenient. This REST API uses the Django framework. We also included scripts to create SQL tables, data, and stored procedures under SQL file.  
+  
 ## Django Version  
 2.1.7
 
@@ -14,7 +15,7 @@ I use environment file to store my passwords. You can use anything you would lik
 `pip install python-dotenv`  
 
   
-## Sample  
-Go to this url for the GET `http://127.0.0.1:8000/usertest/` or paste it into postman.
+## Postman Document  
+`https://documenter.getpostman.com/view/10974610/SzezbrGj`
 
 
